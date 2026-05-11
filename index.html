@@ -1,0 +1,3417 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BARMASTER">
+    <meta name="application-name" content="BARMASTER">
+    <meta name="theme-color" content="#d4af37">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <title>BARMASTER - Plataforma de Mixología | Recetas de Cócteles Profesionales y Técnicas de Bartending</title>
+    <meta name="description" content="BARMASTER - Plataforma líder de mixología con más de 100 recetas de cócteles profesionales. Aprende técnicas avanzadas de bartending, explora 9000 años de historia del alcohol y domina el arte de crear cócteles perfectos. Educación premium gratuita para bartenders y amantes de la mixología.">
+    <meta name="keywords" content="BARMASTER, mixología, cócteles, recetas, bartending, licores, whisky, gin, rum, vinos, destilación, historia del alcohol, técnicas de bar, educación mixología">
+    <meta name="author" content="BARMASTER">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="es">
+    <meta name="geo.region" content="ES">
+    <meta name="geo.placename" content="España">
+    <meta name="geo.position" content="40.4637;-3.7492">
+    <meta name="ICBM" content="40.4637,-3.7492">
+    
+    <!-- Security and Privacy Policy -->
+    <meta name="security-policy" content="https://www.barmaster.com/security-policy">
+    <meta name="privacy-policy" content="https://www.barmaster.com/privacy-policy">
+    <meta name="terms-of-service" content="https://www.barmaster.com/terms">
+    <meta name="last-updated" content="2024-05-09">
+    <meta name="content-security" content="SSL, HTTPS, GDPR-Compliant">
+    <meta name="data-protection" content="GDPR, CCPA, LGPD">
+    <meta name="accessibility" content="WCAG 2.1 AA">
+    
+    <style>
+        
+        /* Page Transition Effect */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        
+        .page-transition.active {
+            opacity: 1;
+        }
+        
+                
+        /* Cookie Modal Styles */
+        .cookie-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .cookie-modal-content {
+            background: var(--panel);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 16px 48px rgba(212,175,55,0.4);
+            animation: modalSlideIn 0.4s ease;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .cookie-header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .cookie-title {
+            font-family: "Playfair Display", serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+        
+        .cookie-description {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        
+        .cookie-categories {
+            margin-bottom: 24px;
+        }
+        
+        .cookie-category {
+            margin-bottom: 16px;
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .category-label {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        .category-name {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+        
+        .category-desc {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--gold);
+            cursor: pointer;
+        }
+        
+        input[type="checkbox"]:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .cookie-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding-top: 20px;
+            border-top: 1px solid var(--stroke);
+        }
+        
+        .cookie-links {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .cookie-link {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .cookie-link:hover {
+            color: var(--gold2);
+            text-decoration: underline;
+        }
+        
+        .cookie-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .cookie-button.primary {
+            background: var(--gold);
+            color: var(--bg);
+        }
+        
+        /* Responsive Design */
+        @media (max-width:768px) {
+            .cookie-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .loading-content {
+                padding: 20px;
+                margin: 20px;
+            }
+            
+            .loading-title {
+                font-size: 2rem;
+            }
+            
+            .loading-subtitle {
+                font-size: 1rem;
+            }
+            
+            .anti-bot-button {
+                padding: 14px 24px;
+                font-size: 1rem;
+            }
+            
+            .cookie-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .cookie-button {
+                width: 100%;
+            }
+        }
+    </style>
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="BARMASTER - Tu Compañero Definitivo en el Arte de la Mixología">
+    <meta property="og:description" content="BARMASTER: tu plataforma definitiva para aprender el arte de la mixología. Recetas profesionales, técnicas avanzadas y la historia completa de los cócteles.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.barmaster.com">
+    <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Cdefs%3E%3ClinearGradient id='gold' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23d4af37'/%3E%3Cstop offset='100%25' style='stop-color:%23b8941f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='630' fill='%23000'/%3E%3Cpath d='M600 157.5 L750 307.5 L750 472.5 L900 622.5 L750 772.5 L750 937.5 L600 787.5 L450 937.5 L450 772.5 L300 622.5 L450 472.5 L450 307.5 Z' fill='url(%23gold)' stroke='%23d4af37' stroke-width='10'/%3E%3Ctext x='600' y='390' font-family='serif' font-size='120' font-weight='bold' text-anchor='middle' fill='%23d4af37'%3EBARMASTER%3C/text%3E%3Ctext x='600' y='480' font-family='sans-serif' font-size='40' text-anchor='middle' fill='%23d4af37'%3ETu Compañero Definitivo en el Arte de la Mixología%3C/text%3E%3C/svg%3E">
+    <meta property="og:locale" content="es_ES">
+    
+    <!-- Twitter Card Meta Tags -->
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cdefs%3E%3ClinearGradient id='gold' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23f4e4bc'/%3E%3Cstop offset='50%25' style='stop-color:%23d4af37'/%3E%3Cstop offset='100%25' style='stop-color:%23b8941f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='16' height='16' fill='%23000' rx='2'/%3E%3Cpath d='M4 3 L4 13 L9 13 Q11 13 11 11 Q11 9 9.5 8.5 Q10.5 8 10.5 6.5 Q10.5 5 9 4.5 Q7.5 4 6 4 Z' fill='url(%23gold)' stroke='%23d4af37' stroke-width='0.4'/%3E%3Cpath d='M5.5 5.5 L8 5.5 Q9 5.5 9 6.5 Q9 7.5 8 7.5 L5.5 7.5 Z' fill='%23000' opacity='0.3'/%3E%3Cpath d='M5.5 9 L8.5 9 Q9.5 9 9.5 10 Q9.5 11 8.5 11 L5.5 11 Z' fill='%23000' opacity='0.3'/%3E%3C/svg%3E">
+    
+    <!-- Favicon BM - B blanca, M dorada (Paths vectoriales nítidos) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000' rx='6'/%3E%3C!-- Letra B blanca --%3E%3Cpath d='M6 8 L6 22 L13 22 Q16 22 16 19 Q16 16 14 15 Q16 14 16 11 Q16 8 13 8 Z M8 10 L12 10 Q14 10 14 12 Q14 14 12 14 L8 14 Z M8 16 L12 16 Q14 16 14 18 Q14 20 12 20 L8 20 Z' fill='%23ffffff'/%3E%3C!-- Letra M dorada --%3E%3Cpath d='M18 8 L18 22 L20 22 L20 12 L22 18 L24 12 L24 22 L26 22 L26 8 L24 8 L22 14 L20 8 Z' fill='%23d4af37'/%3E%3C/svg%3E">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    
+    <!-- Prefetch recursos críticos para mejor performance -->
+    <link rel="prefetch" href="/styles.css" as="style">
+    <link rel="prefetch" href="/script.js" as="script">
+    <link rel="prefetch" href="/loading.html" as="document">
+    <link rel="prefetch" href="/loading-screen.html" as="document">
+    <link rel="prefetch" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=EB+Garamond:wght@400;500;600&display=swap" as="style">
+    <link rel="prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    
+    <!-- DNS prefetch para dominios externos -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registrado:', registration.scope);
+                        
+                        // Check for updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            if (newWorker) {
+                                newWorker.addEventListener('statechange', () => {
+                                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                        // Show update notification
+                                        if (confirm('BARMASTER tiene una nueva versión disponible. ¿Deseas actualizar ahora?')) {
+                                            window.location.reload();
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error al registrar Service Worker:', error);
+                    });
+            });
+        }
+    </script>
+    <style>
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .loading-container {
+                max-width: 500px;
+            }
+            
+            .loading-logo {
+                font-size: 3.8rem;
+                letter-spacing: 2px;
+            }
+            
+            .loading-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .loading-status {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .loading-container {
+                max-width: 350px;
+            }
+            
+            .loading-logo {
+                font-size: 3rem;
+                letter-spacing: 1.5px;
+            }
+            
+            .loading-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .loading-status {
+                font-size: 1rem;
+            }
+        }
+
+        /* Responsive Design - Tablets */
+        @media (max-width: 1024px) {
+            .topbar__inner {
+                padding: 0 2rem;
+            }
+            
+            .nav {
+                gap: 1.5rem;
+            }
+            
+            .nav__link {
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .brand__name {
+                font-size: 1.8rem;
+            }
+            
+            .panel__head {
+                padding: 3rem 2rem 2rem;
+            }
+            
+            .panel__title {
+                font-size: 3.5rem;
+            }
+            
+            .panel__subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .home-hero {
+                padding: 4rem 2rem;
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+                transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+            
+            .home-hero.is-loaded {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            
+            .hero-main-title {
+                font-size: 3rem;
+            }
+            
+            .hero-main-desc {
+                font-size: 1.2rem;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+            
+            .hero-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Responsive Design - Mobile Landscape */
+        @media (max-width: 768px) {
+            .topbar__inner {
+                padding: 0 1rem;
+                height: auto;
+                min-height: 60px;
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+            
+            .brand {
+                order: 1;
+                flex: 1;
+                text-align: center;
+            }
+            
+            .nav {
+                order: 3;
+                width: 100%;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                padding: 0.8rem 0;
+                border-top: 1px solid var(--border);
+            }
+            
+            .nav__link {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.6rem;
+                white-space: nowrap;
+                flex: 1;
+                text-align: center;
+                min-width: 0;
+            }
+            
+            .themebtn {
+                order: 2;
+                position: absolute;
+                top: 0.5rem;
+                right: 0.5rem;
+            }
+            
+            .brand__name {
+                font-size: 1.5rem;
+            }
+            
+            .panel__head {
+                padding: 2rem 1.5rem 1.5rem;
+            }
+            
+            .panel__title {
+                font-size: 2.8rem;
+            }
+            
+            .panel__subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .panel__body {
+                padding: 0 1.5rem 2rem;
+            }
+            
+            .home-hero {
+                padding: 3rem 1.5rem;
+            }
+            
+            .hero-main-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-main-desc {
+                font-size: 1.1rem;
+            }
+            
+            .hero-badge {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.8rem;
+            }
+        }
+
+        /* Responsive Design - Mobile Portrait */
+        @media (max-width: 480px) {
+            .topbar__inner {
+                padding: 0 0.8rem;
+                min-height: 50px;
+                position: relative;
+            }
+            
+            .brand {
+                order: 1;
+                flex: 1;
+                text-align: center;
+            }
+            
+            .nav {
+                order: 3;
+                width: 100%;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                gap: 0.3rem;
+                padding: 0.6rem 0;
+                border-top: 1px solid var(--border);
+            }
+            
+            .nav__link {
+                font-size: 0.65rem;
+                padding: 0.25rem 0.4rem;
+                white-space: nowrap;
+                flex: 1;
+                text-align: center;
+                min-width: 0;
+                line-height: 1.2;
+            }
+            
+            .themebtn {
+                order: 2;
+                position: absolute;
+                top: 0.3rem;
+                right: 0.3rem;
+                width: 32px;
+                height: 32px;
+            }
+            
+            .brand__name {
+                font-size: 1.3rem;
+            }
+            
+            .panel__head {
+                padding: 1.5rem 1rem 1rem;
+            }
+            
+            .panel__title {
+                font-size: 2.2rem;
+            }
+            
+            .panel__subtitle {
+                font-size: 1rem;
+            }
+            
+            .panel__body {
+                padding: 0 1rem 1.5rem;
+            }
+            
+            .home-hero {
+                padding: 2rem 1rem;
+            }
+            
+            .hero-main-title {
+                font-size: 2rem;
+            }
+            
+            .hero-main-desc {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+            
+            .hero-badge {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.6rem;
+            }
+            
+            .hero-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .favorites-counter {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.4rem;
+                min-width: 18px;
+                height: 18px;
+            }
+        }
+
+        /* Responsive Design - Small Mobile */
+        @media (max-width: 360px) {
+            .topbar__inner {
+                padding: 0 0.6rem;
+                min-height: 45px;
+            }
+            
+            .brand {
+                text-align: center;
+            }
+            
+            .nav {
+                gap: 0.2rem;
+                padding: 0.5rem 0;
+            }
+            
+            .nav__link {
+                font-size: 0.55rem;
+                padding: 0.2rem 0.3rem;
+                line-height: 1.1;
+                flex: 1;
+                text-align: center;
+                min-width: 0;
+            }
+            
+            .themebtn {
+                width: 28px;
+                height: 28px;
+                top: 0.2rem;
+                right: 0.2rem;
+            }
+            
+            .brand__name {
+                font-size: 1.1rem;
+            }
+            
+            .panel__title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-main-title {
+                font-size: 1.6rem;
+            }
+            
+            .hero-main-desc {
+                font-size: 0.9rem;
+            }
+            
+            .hero-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .favorites-counter {
+                font-size: 0.55rem;
+                padding: 0.1rem 0.3rem;
+                min-width: 14px;
+                height: 14px;
+            }
+        }
+
+        /* Responsive Design - History Section */
+        @media (max-width: 768px) {
+            .history-eras {
+                gap: 40px;
+            }
+            
+            .era-intro {
+                padding: 20px;
+                margin-bottom: 16px;
+            }
+            
+            .era-intro p {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+            
+            .history-search-container {
+                padding: 16px;
+                margin-bottom: 24px;
+            }
+            
+            .history-search-header {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
+            }
+            
+            .history-search-box {
+                padding: 0 12px;
+            }
+            
+            .history-search-box input {
+                font-size: 0.9rem;
+                padding: 12px 0;
+            }
+            
+            .toggle-filters {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+                justify-content: center;
+            }
+            
+            .history-filters {
+                padding-top: 16px;
+                margin-top: 16px;
+            }
+            
+            .filter-group {
+                margin-bottom: 16px;
+            }
+            
+            .filter-label {
+                font-size: 0.85rem;
+                margin-bottom: 8px;
+            }
+            
+            .filter-options {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .filter-chip {
+                margin-right: 0;
+                margin-bottom: 8px;
+            }
+            
+            .filter-chip span {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+            
+            .era-section {
+                padding: 20px;
+            }
+            
+            .era-title {
+                font-size: 1.4rem;
+                margin-bottom: 20px;
+                padding-bottom: 12px;
+            }
+            
+            .era-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .history-card {
+                padding: 16px;
+            }
+            
+            .card-year {
+                font-size: 0.9rem;
+                padding: 4px 8px;
+                margin-bottom: 8px;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+                margin-bottom: 8px;
+            }
+            
+            .card-desc {
+                font-size: 0.85rem;
+                line-height: 1.5;
+                margin-bottom: 12px;
+            }
+            
+            .card-tags {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            
+            .card-tags span {
+                font-size: 0.7rem;
+                padding: 4px 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .history-eras {
+                gap: 30px;
+            }
+            
+            .era-intro {
+                padding: 16px;
+            }
+            
+            .era-intro p {
+                font-size: 0.95rem;
+            }
+            
+            .history-search-container {
+                padding: 12px;
+            }
+            
+            .history-search-box {
+                padding: 0 10px;
+            }
+            
+            .history-search-box input {
+                font-size: 0.85rem;
+                padding: 10px 0;
+            }
+            
+            .toggle-filters {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+            
+            .filter-chip span {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+            }
+            
+            .era-section {
+                padding: 16px;
+            }
+            
+            .era-title {
+                font-size: 1.2rem;
+            }
+            
+            .history-card {
+                padding: 12px;
+            }
+            
+            .card-year {
+                font-size: 0.8rem;
+                padding: 3px 6px;
+            }
+            
+            .card-title {
+                font-size: 1rem;
+            }
+            
+            .card-desc {
+                font-size: 0.8rem;
+            }
+            
+            .card-tags span {
+                font-size: 0.65rem;
+                padding: 3px 6px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .history-search-header {
+                gap: 8px;
+            }
+            
+            .history-search-box input {
+                font-size: 0.8rem;
+                padding: 8px 0;
+            }
+            
+            .toggle-filters {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+            
+            .filter-chip span {
+                font-size: 0.7rem;
+                padding: 3px 6px;
+            }
+            
+            .era-section {
+                padding: 12px;
+            }
+            
+            .era-title {
+                font-size: 1.1rem;
+            }
+            
+            .history-card {
+                padding: 10px;
+            }
+            
+            .card-year {
+                font-size: 0.75rem;
+                padding: 2px 4px;
+            }
+            
+            .card-title {
+                font-size: 0.9rem;
+            }
+            
+            .card-desc {
+                font-size: 0.75rem;
+            }
+            
+            .card-tags span {
+                font-size: 0.6rem;
+                padding: 2px 4px;
+            }
+        }
+
+        /* Responsive Design - Large Screens */
+        @media (min-width: 1400px) {
+            .topbar__inner {
+                max-width: 1400px;
+                margin: 0 auto;
+            }
+            
+            .panel__head {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            
+            .panel__body {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            
+            .home-hero {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High Contrast Mode */
+        @media (prefers-contrast: high) {
+            .nav__link:hover {
+                background-color: var(--text);
+                color: var(--bg);
+            }
+            
+            .hero-btn {
+                border: 2px solid var(--text);
+            }
+        }
+        
+        /* Loading Screen Styles - Elegant Minimalist */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 2s cubic-bezier(0.25, 0.1, 0.25, 1), visibility 2s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .loading-screen .loading-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* No additional particles - using site bg only */
+        
+        .loading-screen .loading-container {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .loading-screen .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .loading-screen .logo {
+            font-family: "Playfair Display", serif;
+            font-size: 6rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text);
+            position: relative;
+            margin-bottom: 12px;
+        }
+        
+        .loading-screen .logo span {
+            color: var(--gold);
+        }
+        
+        .loading-screen .fluid-line {
+            display: none;
+        }
+        
+        .loading-screen .slogan {
+            font-family: "EB Garamond", Georgia, serif;
+            font-size: 1.8rem;
+            color: var(--text-muted);
+            font-style: italic;
+            letter-spacing: 1.5px;
+            opacity: 0.8;
+            max-width: 500px;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+        
+        .loading-screen .loading-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 280px;
+        }
+        
+        .loading-screen .loading-text {
+            font-family: "EB Garamond", Georgia, serif;
+            font-size: 1.3rem;
+            color: var(--text-dim);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 500;
+            opacity: 0.7;
+        }
+        
+        .loading-screen .loading-percentage {
+            font-family: "Playfair Display", serif;
+            font-size: 1.6rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            opacity: 0.9;
+            font-weight: 600;
+        }
+        
+        .loading-screen .loading-bar-container {
+            width: 100%;
+            height: 6px;
+            background: var(--panel);
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--stroke);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+        
+        .loading-screen .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold2));
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        
+        .loading-screen .status-dots {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        
+        .loading-screen .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            opacity: 0.4;
+            animation: dotPulse 1.5s ease-in-out infinite;
+        }
+        
+        .loading-screen .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .loading-screen .dot:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        
+        .loading-screen .dot:nth-child(3) {
+            animation-delay: 1s;
+        }
+        
+        @keyframes dotPulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+        
+        /* Light theme for loading screen */
+        html[data-theme="light"] .loading-screen {
+            background: linear-gradient(145deg, rgba(252,252,246,0.98), rgba(245,240,230,0.98));
+        }
+        
+        html[data-theme="light"] .loading-screen .logo span {
+            color: var(--gold);
+        }
+        
+        html[data-theme="light"] .loading-screen .slogan {
+            color: var(--text-muted);
+        }
+        
+        html[data-theme="light"] .loading-screen .loading-text {
+            color: var(--text-dim);
+        }
+        
+        html[data-theme="light"] .loading-screen .loading-percentage {
+            color: var(--gold);
+        }
+        
+        html[data-theme="light"] .loading-screen .loading-bar-container {
+            background: rgba(252,252,246,0.8);
+            border: 1px solid rgba(212,175,55,0.2);
+        }
+        
+        html[data-theme="light"] .loading-screen .loading-bar {
+            background: linear-gradient(90deg, var(--gold), var(--gold2));
+        }
+        
+        html[data-theme="light"] .loading-screen .dot {
+            background: var(--gold);
+            box-shadow: 0 0 8px rgba(212,175,55,0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .loading-screen .logo {
+                font-size: 4.5rem;
+                letter-spacing: 1.5px;
+            }
+            
+            .loading-screen .slogan {
+                font-size: 1.4rem;
+                max-width: 350px;
+            }
+            
+            .loading-screen .loading-wrapper {
+                max-width: 300px;
+            }
+            
+            .loading-screen .loading-percentage {
+                font-size: 1.3rem;
+            }
+            
+            .loading-screen .loading-text {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .loading-screen .logo {
+                font-size: 3.5rem;
+                letter-spacing: 1px;
+            }
+            
+            .loading-screen .slogan {
+                font-size: 1.2rem;
+                max-width: 280px;
+            }
+            
+            .loading-screen .loading-wrapper {
+                max-width: 260px;
+            }
+            
+            .loading-screen .loading-percentage {
+                font-size: 1.2rem;
+            }
+            
+            .loading-screen .loading-text {
+                font-size: 1rem;
+            }
+            
+            .loading-screen .dot {
+                width: 10px;
+                height: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Loading Screen with Site Background -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="bg loading-bg" aria-hidden="true"></div>
+        
+        <div class="loading-container">
+            <div class="logo-section">
+                <div class="logo">BAR<span>MASTER</span></div>
+                <div class="slogan">Tu compañero definitivo en el arte de la mixología</div>
+            </div>
+            
+            <div class="loading-wrapper">
+                <div class="loading-bar-container">
+                    <div class="loading-bar"></div>
+                </div>
+                <div class="loading-percentage">0%</div>
+            </div>
+            
+            <div class="loading-text">Preparando experiencia</div>
+            
+            <div class="status-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg" aria-hidden="true"></div>
+
+    <header class="topbar" role="banner">
+        <div class="topbar__inner">
+            <a class="brand" href="#inicio" data-section="inicio" aria-label="Ir a inicio">
+                <span class="brand__name">BAR<span class="brand__gold">MASTER</span></span>
+            </a>
+
+            <nav class="nav" role="navigation" aria-label="Navegación principal">
+                <a class="nav__link is-active" href="#inicio" data-section="inicio">INICIO</a>
+                <a class="nav__link" href="#recetas" data-section="recetas">RECETAS</a>
+                <a class="nav__link" href="#favoritos" data-section="favoritos">
+                    FAVORITOS
+                    <span class="favorites-counter" id="favoritesCounter" style="display: none;">0</span>
+                </a>
+                <a class="nav__link" href="#historia" data-section="historia">HISTORIA</a>
+                <a class="nav__link" href="#acerca" data-section="acerca">ACERCA DE NOSOTROS</a>
+                <a class="nav__link" href="#terminos" data-section="terminos">LEGAL</a>
+            </nav>
+
+            <button class="themebtn" id="themeToggle" type="button" aria-label="Cambiar tema" aria-pressed="false">
+                <i class="fa-solid fa-moon" aria-hidden="true"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="app" role="main">
+        <section class="panel is-active" id="inicio" aria-labelledby="t-inicio">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-inicio">BARMASTER</h1>
+                <p class="panel__subtitle">Tu compañero definitivo en el arte de la mixología</p>
+            </div>
+            <div class="panel__body">
+                <!-- Hero Principal Actualizado 2026 -->
+                <div class="home-hero">
+                    <div class="hero-badge">🍸 Plataforma Educativa Gratuita</div>
+                    <h2 class="hero-main-title">Domina el Arte<br><span class="hero-accent">de la Mixología</span></h2>
+                    <p class="hero-main-desc">
+                        Accede a más de 100 recetas profesionales, explora 9,000 años de historia del alcohol, 
+                        y aprende técnicas de bartending de nivel mundial. Todo 100% gratuito.
+                    </p>
+                    <div class="hero-actions">
+                        <button class="hero-btn primary" onclick="app.goTo('recetas')">
+                            <span>🍸</span> Explorar Recetas
+                        </button>
+                        <button class="hero-btn secondary" onclick="app.goTo('historia')">
+                            <span>📚</span> Descubrir Historia
+                        </button>
+                    </div>
+                    
+                    <!-- Stats Actualizados 2026 -->
+                    <div class="hero-stats-row">
+                        <div class="h-stat">
+                            <span class="h-stat-num">100+</span>
+                            <span class="h-stat-label">Recetas Premium</span>
+                        </div>
+                        <div class="h-stat-divider"></div>
+                        <div class="h-stat">
+                            <span class="h-stat-num">50+</span>
+                            <span class="h-stat-label">Eventos Históricos</span>
+                        </div>
+                        <div class="h-stat-divider"></div>
+                        <div class="h-stat">
+                            <span class="h-stat-num">9K</span>
+                            <span class="h-stat-label">Años de Historia</span>
+                        </div>
+                        <div class="h-stat-divider"></div>
+                        <div class="h-stat">
+                            <span class="h-stat-num">2026</span>
+                            <span class="h-stat-label">Versión Actual</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acceso Rápido Actualizado -->
+                <div class="quick-access">
+                    <h3 class="section-title">Explora Nuestro Contenido</h3>
+                    <div class="access-grid">
+                        <a href="#recetas" class="access-card" onclick="app.goTo('recetas'); return false;">
+                            <div class="access-icon">🍸</div>
+                            <div class="access-content">
+                                <h4>Recetas</h4>
+                                <p>100+ cócteles profesionales con técnicas avanzadas y variaciones</p>
+                            </div>
+                            <div class="access-arrow">→</div>
+                        </a>
+                        
+                        <a href="#favoritos" class="access-card" onclick="app.goTo('favoritos'); return false;">
+                            <div class="access-icon">❤️</div>
+                            <div class="access-content">
+                                <h4>Favoritos</h4>
+                                <p>Crea tu colección personal de recetas preferidas</p>
+                            </div>
+                            <div class="access-arrow">→</div>
+                        </a>
+                        
+                        <a href="#historia" class="access-card" onclick="app.goTo('historia'); return false;">
+                            <div class="access-icon">📚</div>
+                            <div class="access-content">
+                                <h4>Historia</h4>
+                                <p>9,000 años de evolución: desde antiguas civilizaciones hasta la mixología moderna</p>
+                            </div>
+                            <div class="access-arrow">→</div>
+                        </a>
+                        
+                        <a href="#acerca" class="access-card" onclick="app.goTo('acerca'); return false;">
+                            <div class="access-icon">ℹ️</div>
+                            <div class="access-content">
+                                <h4>Acerca de</h4>
+                                <p>Conoce nuestra misión educativa y compromiso con la mixología responsable</p>
+                            </div>
+                            <div class="access-arrow">→</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Destacados Actualizados 2026 -->
+                <div class="highlights-section">
+                    <h3 class="section-title">Nuestra Plataforma Educativa</h3>
+                    <div class="highlights-grid">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">📚</div>
+                            <h4>Contenido Premium</h4>
+                            <p>100+ recetas profesionales con técnicas avanzadas, variaciones modernas y secretos de bartending de nivel mundial.</p>
+                        </div>
+                        
+                        <div class="highlight-item">
+                            <div class="highlight-icon">🔍</div>
+                            <h4>Búsqueda Inteligente</h4>
+                            <p>Filtros avanzados por ingredientes, dificultad, ocasión y tipo. Sistema de favoritos personalizado y recomendaciones.</p>
+                        </div>
+                        
+                        <div class="highlight-item">
+                            <div class="highlight-icon">📜</div>
+                            <h4>Historia Inmersiva</h4>
+                            <p>9,000 años de evolución del alcohol con 50+ eventos históricos, desde antiguas civilizaciones hasta la mixología contemporánea.</p>
+                        </div>
+                        
+                        <div class="highlight-item">
+                            <div class="highlight-icon">💎</div>
+                            <h4>Diseño Moderno</h4>
+                            <p>Interfaz elegante y responsiva con acordeones interactivos, navegación suave y experiencia optimizada para todos los dispositivos.</p>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">✨</div>
+                            <h4>100% Gratuito</h4>
+                            <p>Acceso completo a todo el contenido sin coste alguno. Financiado mediante publicidad transparente y contenido patrocinado.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recetas Populares Preview -->
+                <div class="popular-section">
+                    <div class="popular-header">
+                        <h3 class="section-title">Cócteles Populares</h3>
+                        <button class="view-all-btn" onclick="app.goTo('recetas')">Ver todas →</button>
+                    </div>
+                    <div class="popular-grid" id="popularCocktails">
+                        <!-- Se llenará dinámicamente con JS -->
+                        <div class="popular-placeholder">
+                            <div class="placeholder-card">
+                                <div class="placeholder-icon">🍸</div>
+                                <span>Margarita</span>
+                            </div>
+                            <div class="placeholder-card">
+                                <div class="placeholder-icon">🥃</div>
+                                <span>Old Fashioned</span>
+                            </div>
+                            <div class="placeholder-card">
+                                <div class="placeholder-icon">🍹</div>
+                                <span>Mojito</span>
+                            </div>
+                            <div class="placeholder-card">
+                                <div class="placeholder-icon">🍸</div>
+                                <span>Martini</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Final Artístico -->
+                <div class="final-cta">
+                    <h3>¿Listo para explorar el mundo de los cócteles?</h3>
+                    <p>Te invitamos a descubrir nuestras recetas detalladas y viajar por 9,000 años de historia del alcohol. Tu aventura mixológica comienza aquí.</p>
+                    <div class="cta-buttons">
+                        <button class="hero-btn primary" onclick="app.goTo('recetas')">
+                            <span>🍸</span> Explorar Recetas
+                        </button>
+                        <button class="hero-btn secondary" onclick="app.goTo('historia')">
+                            <span>📚</span> Viajar en el Tiempo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Footer Info Premium -->
+                <div class="home-footer">
+                    <div class="footer-content">
+                        <div class="footer-brand">
+                            <span class="footer-logo">BARMASTER</span>
+                            <p class="footer-tagline">Donde cada cóctel es una obra de arte</p>
+                        </div>
+                        <div class="footer-tech">
+                            <span>HTML5</span>
+                            <span>CSS3</span>
+                            <span>JavaScript</span>
+                            <span>Diseño Responsivo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="recetas" aria-labelledby="t-recetas">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-recetas">RECETAS</h1>
+                <p class="panel__subtitle">Explora nuestra colección de cócteles</p>
+            </div>
+            <div class="panel__body">
+                <div class="search-section">
+                    <div class="search-bar">
+                        <input type="search" id="searchInput" placeholder="Buscar" aria-label="Buscar recetas">
+                        <div class="search-stats" id="searchStats"></div>
+                    </div>
+                </div>
+
+                <div class="advanced-filters">
+                    <div class="filter-header">
+                        <button class="filter-toggle" id="filterToggle">
+                            <span class="toggle-text">Filtros Avanzados</span>
+                            <span class="toggle-icon">▼</span>
+                        </button>
+                        <button class="reset-filters" id="resetFilters">Limpiar todo</button>
+                    </div>
+                    
+                    <div class="filter-categories" id="filterCategories">
+                        <div class="filter-category">
+                            <h4 class="category-title">Tipo de Alcohol</h4>
+                            <div class="filter-items">
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-gin" data-filter="gin" data-filter-type="alcohol">
+                                    <label for="filter-gin" class="checkmark"></label>
+                                    <label for="filter-gin" class="label">Gin</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-whisky" data-filter="whisky" data-filter-type="alcohol">
+                                    <label for="filter-whisky" class="checkmark"></label>
+                                    <label for="filter-whisky" class="label">Whisky</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-vodka" data-filter="vodka" data-filter-type="alcohol">
+                                    <label for="filter-vodka" class="checkmark"></label>
+                                    <label for="filter-vodka" class="label">Vodka</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-tequila" data-filter="tequila" data-filter-type="alcohol">
+                                    <label for="filter-tequila" class="checkmark"></label>
+                                    <label for="filter-tequila" class="label">Tequila</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-rum" data-filter="ron" data-filter-type="alcohol">
+                                    <label for="filter-rum" class="checkmark"></label>
+                                    <label for="filter-rum" class="label">Ron</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-brandy" data-filter="brandy" data-filter-type="alcohol">
+                                    <label for="filter-brandy" class="checkmark"></label>
+                                    <label for="filter-brandy" class="label">Brandy</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-liqueur" data-filter="liqueur" data-filter-type="alcohol">
+                                    <label for="filter-liqueur" class="checkmark"></label>
+                                    <label for="filter-liqueur" class="label">Licores</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-sin-alcohol" data-filter="sin-alcohol" data-filter-type="alcohol">
+                                    <label for="filter-sin-alcohol" class="checkmark"></label>
+                                    <label for="filter-sin-alcohol" class="label">Sin Alcohol</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-pisco" data-filter="pisco" data-filter-type="alcohol">
+                                    <label for="filter-pisco" class="checkmark"></label>
+                                    <label for="filter-pisco" class="label">Pisco</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-cachaca" data-filter="cachaça" data-filter-type="alcohol">
+                                    <label for="filter-cachaca" class="checkmark"></label>
+                                    <label for="filter-cachaca" class="label">Cachaça</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-mezcal" data-filter="mezcal" data-filter-type="alcohol">
+                                    <label for="filter-mezcal" class="checkmark"></label>
+                                    <label for="filter-mezcal" class="label">Mezcal</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-category">
+                            <h4 class="category-title">Perfil de Sabor</h4>
+                            <div class="filter-items">
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-dulce" data-filter="dulce" data-filter-type="flavor">
+                                    <label for="filter-dulce" class="checkmark"></label>
+                                    <label for="filter-dulce" class="label">Dulce</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-amargo" data-filter="amargo" data-filter-type="flavor">
+                                    <label for="filter-amargo" class="checkmark"></label>
+                                    <label for="filter-amargo" class="label">Amargo</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-acido" data-filter="ácido" data-filter-type="flavor">
+                                    <label for="filter-acido" class="checkmark"></label>
+                                    <label for="filter-acido" class="label">Ácido</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-citrico" data-filter="cítrico" data-filter-type="flavor">
+                                    <label for="filter-citrico" class="checkmark"></label>
+                                    <label for="filter-citrico" class="label">Cítrico</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-frutal" data-filter="frutal" data-filter-type="flavor">
+                                    <label for="filter-frutal" class="checkmark"></label>
+                                    <label for="filter-frutal" class="label">Frutal</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-herbal" data-filter="herbal" data-filter-type="flavor">
+                                    <label for="filter-herbal" class="checkmark"></label>
+                                    <label for="filter-herbal" class="label">Herbal</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-especiado" data-filter="especiado" data-filter-type="flavor">
+                                    <label for="filter-especiado" class="checkmark"></label>
+                                    <label for="filter-especiado" class="label">Especiado</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-cremoso" data-filter="cremoso" data-filter-type="flavor">
+                                    <label for="filter-cremoso" class="checkmark"></label>
+                                    <label for="filter-cremoso" class="label">Cremoso</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-category">
+                            <h4 class="category-title">Dificultad</h4>
+                            <div class="filter-items">
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-facil" data-filter="fácil" data-filter-type="difficulty">
+                                    <label for="filter-facil" class="checkmark"></label>
+                                    <label for="filter-facil" class="label">Fácil</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-medio" data-filter="medio" data-filter-type="difficulty">
+                                    <label for="filter-medio" class="checkmark"></label>
+                                    <label for="filter-medio" class="label">Medio</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-dificil" data-filter="difícil" data-filter-type="difficulty">
+                                    <label for="filter-dificil" class="checkmark"></label>
+                                    <label for="filter-dificil" class="label">Difícil</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-category">
+                            <h4 class="category-title">Tipo de Vaso</h4>
+                            <div class="filter-items">
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-martini" data-filter="martini" data-filter-type="glass">
+                                    <label for="filter-martini" class="checkmark"></label>
+                                    <label for="filter-martini" class="label">Copa Martini</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-old-fashioned" data-filter="old-fashioned" data-filter-type="glass">
+                                    <label for="filter-old-fashioned" class="checkmark"></label>
+                                    <label for="filter-old-fashioned" class="label">Vaso Old Fashioned</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-highball" data-filter="highball" data-filter-type="glass">
+                                    <label for="filter-highball" class="checkmark"></label>
+                                    <label for="filter-highball" class="label">Vaso Highball</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-copa" data-filter="copa" data-filter-type="glass">
+                                    <label for="filter-copa" class="checkmark"></label>
+                                    <label for="filter-copa" class="label">Copa Balón</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-coupe" data-filter="coupe" data-filter-type="glass">
+                                    <label for="filter-coupe" class="checkmark"></label>
+                                    <label for="filter-coupe" class="label">Copa Coupe</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-shot" data-filter="shot" data-filter-type="glass">
+                                    <label for="filter-shot" class="checkmark"></label>
+                                    <label for="filter-shot" class="label">Vaso Shot</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-category">
+                            <h4 class="category-title">Técnica</h4>
+                            <div class="filter-items">
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-agitar" data-filter="agitar" data-filter-type="technique">
+                                    <label for="filter-agitar" class="checkmark"></label>
+                                    <label for="filter-agitar" class="label">Agitar</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-revolver" data-filter="revolver" data-filter-type="technique">
+                                    <label for="filter-revolver" class="checkmark"></label>
+                                    <label for="filter-revolver" class="label">Revolver</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-construir" data-filter="construir" data-filter-type="technique">
+                                    <label for="filter-construir" class="checkmark"></label>
+                                    <label for="filter-construir" class="label">Construir</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-mezclar" data-filter="mezclar" data-filter-type="technique">
+                                    <label for="filter-mezclar" class="checkmark"></label>
+                                    <label for="filter-mezclar" class="label">Mezclar</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-directo" data-filter="directo" data-filter-type="technique">
+                                    <label for="filter-directo" class="checkmark"></label>
+                                    <label for="filter-directo" class="label">Directo</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-category">
+                            <h4 class="category-title">Ocasión</h4>
+                            <div class="filter-items">
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-aperitivo" data-filter="aperitivo" data-filter-type="occasion">
+                                    <label for="filter-aperitivo" class="checkmark"></label>
+                                    <label for="filter-aperitivo" class="label">Aperitivo</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-digestivo" data-filter="digestivo" data-filter-type="occasion">
+                                    <label for="filter-digestivo" class="checkmark"></label>
+                                    <label for="filter-digestivo" class="label">Digestivo</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-clasico" data-filter="clásico" data-filter-type="occasion">
+                                    <label for="filter-clasico" class="checkmark"></label>
+                                    <label for="filter-clasico" class="label">Clásico</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-romantico" data-filter="romántico" data-filter-type="occasion">
+                                    <label for="filter-romantico" class="checkmark"></label>
+                                    <label for="filter-romantico" class="label">Romántico</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-fiesta" data-filter="fiesta" data-filter-type="occasion">
+                                    <label for="filter-fiesta" class="checkmark"></label>
+                                    <label for="filter-fiesta" class="label">Fiesta</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-category">
+                            <h4 class="category-title">País de Origen</h4>
+                            <div class="filter-items">
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-italia" data-filter="Italia" data-filter-type="origin">
+                                    <label for="filter-italia" class="checkmark"></label>
+                                    <label for="filter-italia" class="label">Italia</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-francia" data-filter="Francia" data-filter-type="origin">
+                                    <label for="filter-francia" class="checkmark"></label>
+                                    <label for="filter-francia" class="label">Francia</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-mexico" data-filter="México" data-filter-type="origin">
+                                    <label for="filter-mexico" class="checkmark"></label>
+                                    <label for="filter-mexico" class="label">México</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-cuba" data-filter="Cuba" data-filter-type="origin">
+                                    <label for="filter-cuba" class="checkmark"></label>
+                                    <label for="filter-cuba" class="label">Cuba</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-eeuu" data-filter="EEUU" data-filter-type="origin">
+                                    <label for="filter-eeuu" class="checkmark"></label>
+                                    <label for="filter-eeuu" class="label">EE.UU.</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-brasil" data-filter="Brasil" data-filter-type="origin">
+                                    <label for="filter-brasil" class="checkmark"></label>
+                                    <label for="filter-brasil" class="label">Brasil</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-irlanda" data-filter="Irlanda" data-filter-type="origin">
+                                    <label for="filter-irlanda" class="checkmark"></label>
+                                    <label for="filter-irlanda" class="label">Irlanda</label>
+                                </div>
+                                <div class="filter-item">
+                                    <input type="checkbox" id="filter-espana" data-filter="España" data-filter-type="origin">
+                                    <label for="filter-espana" class="checkmark"></label>
+                                    <label for="filter-espana" class="label">España</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recipes-showcase" id="recipesContainer">
+                    <!-- Recipe cards will be dynamically loaded here -->
+                </div>
+
+                <!-- Recipe Viewer Modal -->
+                <div class="recipe-viewer" id="recipeViewer">
+                    <div class="viewer-backdrop" onclick="app.closeRecipeViewer()"></div>
+                    <div class="viewer-content">
+                        <div class="viewer-header">
+                            <button class="viewer-close" onclick="app.closeRecipeViewer()" aria-label="Cerrar">
+                                ×
+                            </button>
+                            <h2 class="viewer-title" id="viewerTitle"></h2>
+                            <div class="viewer-meta">
+                                <span class="viewer-rating" id="viewerRating"></span>
+                                <button class="viewer-favorite" id="viewerFavorite" onclick="app.toggleViewerFavorite()">
+                                    Favorito
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="viewer-body">
+                            <div class="viewer-section">
+                                <h3 class="section-title">Información General</h3>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <div>
+                                            <span class="info-label">Alcohol</span>
+                                            <span class="info-value" id="viewerAlcohol"></span>
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div>
+                                            <span class="info-label">Sabor</span>
+                                            <span class="info-value" id="viewerFlavor"></span>
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div>
+                                            <span class="info-label">Dificultad</span>
+                                            <span class="info-value" id="viewerDifficulty"></span>
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div>
+                                            <span class="info-label">Tiempo</span>
+                                            <span class="info-value" id="viewerTime"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="viewer-section">
+                                <h3 class="section-title">Ingredientes</h3>
+                                <div class="ingredients-list" id="viewerIngredients"></div>
+                                <div class="servings-control">
+                                    <label for="servingsSlider">Porciones:</label>
+                                    <input type="range" id="servingsSlider" min="1" max="12" value="1" step="1">
+                                    <span id="servingsValue">1</span>
+                                </div>
+                            </div>
+
+                            <div class="viewer-section">
+                                <h3 class="section-title">Instrucciones</h3>
+                                <div class="instructions-steps" id="viewerInstructions"></div>
+                            </div>
+
+                            <div class="viewer-section">
+                                <h3 class="section-title">Técnica y Vaso</h3>
+                                <div class="technique-info">
+                                    <div class="technique-item">
+                                        <span id="viewerTechnique"></span>
+                                    </div>
+                                    <div class="technique-item">
+                                        <span id="viewerGlass"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="receta" aria-labelledby="t-receta">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-receta">RECETA</h1>
+                <p class="panel__subtitle">Vista detallada de cóctel</p>
+            </div>
+            <div class="panel__body">
+                <div class="recipe-page" id="recipePageContainer">
+                    <!-- Recipe page content will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="favoritos" aria-labelledby="t-favoritos">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-favoritos">FAVORITOS</h1>
+                <p class="panel__subtitle">Tus cócteles preferidos</p>
+            </div>
+            <div class="panel__body">
+                <div class="favorites-controls">
+                    <div class="favorites-search">
+                        <input type="search" id="favoritesSearch" placeholder="Buscar" aria-label="Buscar favoritos">
+                    </div>
+                    <div class="favorites-toolbar">
+                        <div class="favorites-filters">
+                            <select id="favoritesFilterAlcohol" class="favorites-select">
+                                <option value="">Todos los alcoholes</option>
+                                <option value="gin">Gin</option>
+                                <option value="vodka">Vodka</option>
+                                <option value="ron">Ron</option>
+                                <option value="tequila">Tequila</option>
+                                <option value="whisky">Whisky</option>
+                                <option value="brandy">Brandy</option>
+                                <option value="liqueur">Licores</option>
+                                <option value="sin-alcohol">Sin Alcohol</option>
+                            </select>
+                            <select id="favoritesFilterFlavor" class="favorites-select">
+                                <option value="">Todos los sabores</option>
+                                <option value="dulce">Dulce</option>
+                                <option value="amargo">Amargo</option>
+                                <option value="cítrico">Cítrico</option>
+                                <option value="frutal">Frutal</option>
+                                <option value="herbal">Herbal</option>
+                                <option value="especiado">Especiado</option>
+                            </select>
+                            <select id="favoritesSort" class="favorites-select">
+                                <option value="name">Ordenar: Nombre</option>
+                                <option value="rating">Ordenar: Calificación</option>
+                                <option value="difficulty">Ordenar: Dificultad</option>
+                                <option value="recent">Ordenar: Recientes</option>
+                            </select>
+                        </div>
+                        <button class="btn-clear-favorites" id="clearAllFavorites">Limpiar todo</button>
+                    </div>
+                    <div class="favorites-stats-bar">
+                        <span id="favoritesCount">0 recetas favoritas</span>
+                        <span id="favoritesFiltered">Mostrando todas</span>
+                    </div>
+                </div>
+                <div class="favorites-grid" id="favoritesContainer">
+                    <!-- Favorites will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="historia" aria-labelledby="t-historia">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-historia">HISTORIA</h1>
+                <p class="panel__subtitle">9000 años de evolución del alcohol en tarjetas informativas</p>
+            </div>
+            <div class="panel__body">
+                <!-- History Search and Filters -->
+                <div class="history-search-container">
+                    <div class="history-search-header">
+                        <div class="history-search-box">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="historySearch" placeholder="Buscar eventos históricos...">
+                            <span class="clear-search" id="clearHistorySearch" style="display: none;">✕</span>
+                        </div>
+                        <button class="toggle-filters" id="toggleFilters">
+                            <span>⚙️</span>
+                            <span>Filtros</span>
+                        </button>
+                    </div>
+                    <div class="history-filters" id="historyFilters" style="display: none;">
+                        <div class="filter-group">
+                            <label class="filter-label">Eras Históricas</label>
+                            <div class="filter-options">
+                                <label class="filter-chip">
+                                    <input type="checkbox" value="antigua" checked>
+                                    <span>🏛️ Edad Antigua</span>
+                                </label>
+                                <label class="filter-chip">
+                                    <input type="checkbox" value="media" checked>
+                                    <span>⚔️ Edad Media</span>
+                                </label>
+                                <label class="filter-chip">
+                                    <input type="checkbox" value="moderna" checked>
+                                    <span>🌍 Era Moderna</span>
+                                </label>
+                                <label class="filter-chip">
+                                    <input type="checkbox" value="actual" checked>
+                                    <span>🚀 Siglo XX y XXI</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="filter-actions">
+                            <button class="apply-filters" id="applyFilters">Aplicar</button>
+                            <button class="reset-filters" id="resetFilters">Reiniciar</button>
+                        </div>
+                    </div>
+                    <div class="search-results-bar">
+                        <div class="search-stats" id="historySearchStats">Mostrando todos los eventos</div>
+                        <div class="sort-options">
+                            <label>Ordenar por:</label>
+                            <select id="sortHistory">
+                                <option value="date-asc">Fecha (ascendente)</option>
+                                <option value="date-desc">Fecha (descendente)</option>
+                                <option value="name">Nombre</option>
+                                <option value="relevance">Relevancia</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Cards Grid -->
+                <div class="history-grid">
+                    <!-- Ancient Era Cards -->
+                    <article class="history-card" data-era="antigua">
+                        <div class="card-header">
+                            <div class="card-era">🏛️ Edad Antigua</div>
+                            <div class="card-year">7000 a.C.</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Primeras Fermentaciones</h3>
+                            <p class="card-description">Hallazgos arqueológicos en Jiahu, China revelan las primeras bebidas fermentadas de arroz, miel y frutas. En Egipto, la cerveza era alimento básico y pago para trabajadores de las pirámides.</p>
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Ubicación:</span>
+                                    <span class="detail-value">Jiahu, China; Egipto</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Ingredientes:</span>
+                                    <span class="detail-value">Arroz, miel, frutas, cebada</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Significado:</span>
+                                    <span class="detail-value">Inicio producción alcoholera</span>
+                                </div>
+                            </div>
+                            <div class="card-impact">
+                                <h4>Impacto Cultural</h4>
+                                <ul>
+                                    <li>Rituales religiosos</li>
+                                    <li>Sistema de pago</li>
+                                    <li>Almacenamiento innovador</li>
+                                </ul>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">🏺 Cerámica</span>
+                                <span class="tag">🌾 Arroz</span>
+                                <span class="tag">🏛️ Egipto</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="history-card" data-era="antigua">
+                        <div class="card-header">
+                            <div class="card-era">🏛️ Edad Antigua</div>
+                            <div class="card-year">5000 a.C.</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Domesticación de la Vid</h3>
+                            <p class="card-description">Primeras viñas cultivadas en Georgia. Los fenicios establecen rutas comerciales internacionales, transportando vino por el Mediterráneo en característicos ánforas.</p>
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Región:</span>
+                                    <span class="detail-value">Georgia, Fenicia</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Técnica:</span>
+                                    <span class="detail-value">Cultivo sistemático</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Comercio:</span>
+                                    <span class="detail-value">Rutas marítimas</span>
+                                </div>
+                            </div>
+                            <div class="card-impact">
+                                <h4>Impacto Cultural</h4>
+                                <ul>
+                                    <li>Expansión mediterránea</li>
+                                    <li>Intercambio cultural</li>
+                                    <li>Nacimiento enología</li>
+                                </ul>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">🍇 Vid</span>
+                                <span class="tag">⛵ Fenicios</span>
+                                <span class="tag">🌊 Mediterráneo</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="history-card" data-era="antigua">
+                        <div class="card-header">
+                            <div class="card-era">🏛️ Edad Antigua</div>
+                            <div class="card-year">3000 a.C.</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Código de Hammurabi</h3>
+                            <p class="card-description">Primera regulación escrita de cerveza en Babilonia. Control de precios, estándares de calidad y establecimiento de tabernas oficiales del Estado.</p>
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Lugar:</span>
+                                    <span class="detail-value">Babilonia</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Regulación:</span>
+                                    <span class="detail-value">Precios, calidad</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Tipos:</span>
+                                    <span class="detail-value">20+ variedades</span>
+                                </div>
+                            </div>
+                            <div class="card-impact">
+                                <h4>Impacto Cultural</h4>
+                                <ul>
+                                    <li>Primera ley alimentaria</li>
+                                    <li>Control estatal</li>
+                                    <li>Precedente legal</li>
+                                </ul>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">⚖️ Leyes</span>
+                                <span class="tag">🍺 Cerveza</span>
+                                <span class="tag">💰 Comercio</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="history-card" data-era="antigua">
+                        <div class="card-header">
+                            <div class="card-era">🏛️ Edad Antigua</div>
+                            <div class="card-year">1500 a.C.</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Cultura Griega del Vino</h3>
+                            <p class="card-description">Dionisio, dios del vino. El simposium como ritual filosófico donde se debatía mientras se bebía. Las Dionisias combinaban teatro y consumo de vino.</p>
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Deidad:</span>
+                                    <span class="detail-value">Dionisio</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Ritual:</span>
+                                    <span class="detail-value">Simposium</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Festivales:</span>
+                                    <span class="detail-value">Dionisias</span>
+                                </div>
+                            </div>
+                            <div class="card-impact">
+                                <h4>Impacto Cultural</h4>
+                                <ul>
+                                    <li>Filosofía y vino</li>
+                                    <li>Teatro griego</li>
+                                    <li>Rituales sociales</li>
+                                </ul>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">🍷 Vino</span>
+                                <span class="tag">🎭 Teatro</span>
+                                <span class="tag">🏛️ Grecia</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="history-card" data-era="antigua">
+                        <div class="card-header">
+                            <div class="card-era">🏛️ Edad Antigua</div>
+                            <div class="card-year">500 a.C.</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Imperio Romano</h3>
+                            <p class="card-description">Roma consume 180 millones de litros anuales. El vino es parte integral de la dieta de legionarios y ciudadanos. El Imperio extiende la viticultura por toda Europa.</p>
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Consumo:</span>
+                                    <span class="detail-value">180M litros/año</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Expansión:</span>
+                                    <span class="detail-value">Galia, Hispania</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Técnica:</span>
+                                    <span class="detail-value">Barriles de madera</span>
+                                </div>
+                            </div>
+                            <div class="card-impact">
+                                <h4>Impacto Cultural</h4>
+                                <ul>
+                                    <li>Unificación cultural</li>
+                                    <li>Viñedos europeos</li>
+                                    <li>Consumo diario</li>
+                                </ul>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">🏛️ Roma</span>
+                                <span class="tag">🍷 Consumo</span>
+                                <span class="tag">⚔️ Legión</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Medieval Era Cards -->
+                    <article class="history-card" data-era="media">
+                        <div class="card-header">
+                            <div class="card-era">⚔️ Edad Media</div>
+                            <div class="card-year">800 d.C.</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Alquimia Árabe</h3>
+                            <p class="card-description">Los alquimistas árabes desarrollan técnicas avanzadas de destilación. El término "alcohol" proviene del árabe "al-kohl". Avicena documenta usos medicinales.</p>
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Científicos:</span>
+                                    <span class="detail-value">Avicena, Al-Razi</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Técnicas:</span>
+                                    <span class="detail-value">Alambiques</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Usos:</span>
+                                    <span class="detail-value">Medicina, perfumería</span>
+                                </div>
+                            </div>
+                            <div class="card-impact">
+                                <h4>Impacto Cultural</h4>
+                                <ul>
+                                    <li>Química moderna</li>
+                                    <li>Avances médicos</li>
+                                    <li>Transmisión a Europa</li>
+                                </ul>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">⚗️ Destilación</span>
+                                <span class="tag">📜 Ciencia</span>
+                                <span class="tag">🌙 Mundo Árabe</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="history-card" data-era="media">
+                        <div class="card-header">
+                            <div class="card-era">⚔️ Edad Media</div>
+                            <div class="card-year">900 d.C.</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Monasterios Europeos</h3>
+                            <p class="card-description">Los monjes benedictinos y cistercienses preservan la viticultura. La abadía de Cluny produce 1.5 millones de litros anuales. Desarrollo de técnicas avanzadas.</p>
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Órdenes:</span>
+                                    <span class="detail-value">Benedictinos</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Producción:</span>
+                                    <span class="detail-value">1.5M litros/año</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Innovaciones:</span>
+                                    <span class="detail-value">Terruño, poda</span>
+                                </div>
+                            </div>
+                            <div class="card-impact">
+                                <h4>Impacto Cultural</h4>
+                                <ul>
+                                    <li>Preservación conocimiento</li>
+                                    <li>Desarrollo enológico</li>
+                                    <li>Viticultura moderna</li>
+                                </ul>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">⛪ Monjes</span>
+                                <span class="tag">🍷 Vino</span>
+                                <span class="tag">🏔️ Europa</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="history-card" data-era="media">
+                        <div class="card-header">
+                            <div class="card-era">⚔️ Edad Media</div>
+                            <div class="card-year">1300 d.C.</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Gremios de Cerveza</h3>
+                            <p class="card-description">Asociaciones profesionales controlan calidad y producción. En Alemania, la cerveza es más segura que el agua contaminada. Establecimiento de estándares.</p>
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Regiones:</span>
+                                    <span class="detail-value">Alemania</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Control:</span>
+                                    <span class="detail-value">Calidad, precios</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Seguridad:</span>
+                                    <span class="detail-value">vs agua contaminada</span>
+                                </div>
+                            </div>
+                            <div class="card-impact">
+                                <h4>Impacto Cultural</h4>
+                                <ul>
+                                    <li>Profesionalización</li>
+                                    <li>Control calidad</li>
+                                    <li>Regulaciones modernas</li>
+                                </ul>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">🍺 Cerveza</span>
+                                <span class="tag">🏰 Gremios</span>
+                                <span class="tag">🇩🇪 Alemania</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Modern Era Cards -->
+                    <article class="history-card" data-era="moderna">
+                        <div class="card-header">
+                            <div class="card-era">🌍 Era Moderna</div>
+                            <div class="card-year">1516</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Reinheitsgebot Alemán</h3>
+                            <p class="card-description">Ley de Pureza Alemana: cerveza solo con agua, malta y lúpulo. Normativa de calidad más antigua del mundo aún vigente. Estándar extendido por toda Alemania.</p>
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Lugar:</span>
+                                    <span class="detail-value">Baviera</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Ingredientes:</span>
+                                    <span class="detail-value">Agua, malta, lúpulo</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Vigencia:</span>
+                                    <span class="detail-value">508+ años</span>
+                                </div>
+                            </div>
+                            <div class="card-impact">
+                                <h4>Impacto Cultural</h4>
+                                <ul>
+                                    <li>Primera ley pureza</li>
+                                    <li>Estándar global</li>
+                                    <li>Protección consumidor</li>
+                                </ul>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">⚖️ Ley</span>
+                                <span class="tag">🇩🇪 Alemania</span>
+                                <span class="tag">🍺 Pureza</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="history-card" data-era="moderna">
+                        <div class="card-header">
+                            <div class="card-era">🌍 Era Moderna</div>
+                            <div class="card-year">1650</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Ron del Caribe</h3>
+                            <p class="card-description">Ingenios azucareros producen ron como subproducto de la caña. Comercio triangular lo exporta globalmente. Cultura marinera y pirata lo difunde mundialmente.</p>
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Regiones:</span>
+                                    <span class="detail-value">Caribe, Jamaica</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Comercio:</span>
+                                    <span class="detail-value">Ruta triangular</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Tipos:</span>
+                                    <span class="detail-value">Light, dark, aged</span>
+                                </div>
+                            </div>
+                            <div class="card-impact">
+                                <h4>Impacto Cultural</h4>
+                                <ul>
+                                    <li>Espíritu global</li>
+                                    <li>Economía colonial</li>
+                                    <li>Cultura pirata</li>
+                                </ul>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">🏝️ Caribe</span>
+                                <span class="tag">🌾 Caña</span>
+                                <span class="tag">⛵ Comercio</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="history-card" data-era="moderna">
+                        <div class="card-header">
+                            <div class="card-era">🌍 Era Moderna</div>
+                            <div class="card-year">1857</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Pasteur y Microbios</h3>
+                            <p class="card-description">Louis Pasteur demuestra que la fermentación es causada por microorganismos vivos. Fundamento de la microbiología moderna y control bacteriológico industrial.</p>
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Científico:</span>
+                                    <span class="detail-value">Louis Pasteur</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Descubrimiento:</span>
+                                    <span class="detail-value">Fermentación microbiana</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Aplicación:</span>
+                                    <span class="detail-value">Control industrial</span>
+                                </div>
+                            </div>
+                            <div class="card-impact">
+                                <h4>Impacto Cultural</h4>
+                                <ul>
+                                    <li>Microbiología</li>
+                                    <li>Seguridad alimentaria</li>
+                                    <li>Producción controlada</li>
+                                </ul>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">🧪 Ciencia</span>
+                                <span class="tag">🦠 Microbios</span>
+                                <span class="tag">🇫🇷 Francia</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Contemporary Era Cards -->
+                    <article class="history-card" data-era="actual">
+                        <div class="card-header">
+                            <div class="card-era">🚀 Siglo XX y XXI</div>
+                            <div class="card-year">1920</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Prohibición en EE.UU.</h3>
+                            <p class="card-description">13 años de prohibición (1920-1933). Speakeasies clandestinos, mafia controlando tráfico, cultura underground y contrabando organizado.</p>
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Duración:</span>
+                                    <span class="detail-value">13 años</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Lugares:</span>
+                                    <span class="detail-value">Speakeasies</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Organización:</span>
+                                    <span class="detail-value">Mafia</span>
+                                </div>
+                            </div>
+                            <div class="card-impact">
+                                <h4>Impacto Cultural</h4>
+                                <ul>
+                                    <li>Auge crimen organizado</li>
+                                    <li>Cultura clandestina</li>
+                                    <li>Precedente regulación</li>
+                                </ul>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">🚫 Ley Seca</span>
+                                <span class="tag">🕵️ Speakeasy</span>
+                                <span class="tag">🇺🇸 EE.UU.</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="history-card" data-era="actual">
+                        <div class="card-header">
+                            <div class="card-era">🚀 Siglo XX y XXI</div>
+                            <div class="card-year">1980</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Renacimiento de Coctelería</h3>
+                            <p class="card-description">Vuelta a técnicas clásicas. Cócteles artesanales con ingredientes frescos. Nacimiento de la mixología moderna y establecimiento de bares temáticos.</p>
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Movimiento:</span>
+                                    <span class="detail-value">Craft cocktail</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Técnicas:</span>
+                                    <span class="detail-value">Clásicas, frescas</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Profesión:</span>
+                                    <span class="detail-value">Mixólogo</span>
+                                </div>
+                            </div>
+                            <div class="card-impact">
+                                <h4>Impacto Cultural</h4>
+                                <ul>
+                                    <li>Profesionalización</li>
+                                    <li>Calidad creatividad</li>
+                                    <li>Cultura global</li>
+                                </ul>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">🍸 Cócteles</span>
+                                <span class="tag">🎨 Artesanal</span>
+                                <span class="tag">🌍 Global</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="history-card" data-era="actual">
+                        <div class="card-header">
+                            <div class="card-era">🚀 Siglo XX y XXI</div>
+                            <div class="card-year">2020</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Era Digital</h3>
+                            <p class="card-description">Apps de recetas y delivery online. Comunidades digitales y educación virtual. Sostenibilidad y consumo responsable. Cócteles moleculares e innovación.</p>
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Tecnología:</span>
+                                    <span class="detail-value">Apps, delivery</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Valores:</span>
+                                    <span class="detail-value">Sostenibilidad</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Innovación:</span>
+                                    <span class="detail-value">Cócteles moleculares</span>
+                                </div>
+                            </div>
+                            <div class="card-impact">
+                                <h4>Impacto Cultural</h4>
+                                <ul>
+                                    <li>Democratización</li>
+                                    <li>Conciencia ambiental</li>
+                                    <li>Innovación constante</li>
+                                </ul>
+                            </div>
+                            <div class="card-tags">
+                                <span class="tag">📱 Digital</span>
+                                <span class="tag">♻️ Verde</span>
+                                <span class="tag">🔬 Innovación</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="tecnicas-whisky" style="display: none;" aria-labelledby="t-tecnicas-whisky">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-tecnicas-whisky">TÉCNICAS DE ELABORACIÓN DE WHISKY</h1>
+                <p class="panel__subtitle">El proceso detrás de cada gota</p>
+            </div>
+            <div class="panel__body">
+                <div class="content-section">
+                    <h2>Malteado</h2>
+                    <p>El grano se remoja para germinar, lo que convierte el almidón en azúcares fermentables. Luego se seca para detener la germinación.</p>
+                    <h2>Destilación</h2>
+                    <p>El mosto fermentado se destila dos veces en alambiques de cobre. El cobre elimina compuestos de azufre y mejora el sabor.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="vinos-europeos" style="display: none;" aria-labelledby="t-vinos-europeos">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-vinos-europeos">VINOS EUROPEOS CLÁSICOS</h1>
+                <p class="panel__subtitle">Las grandes regiones vinícolas</p>
+            </div>
+            <div class="panel__body">
+                <div class="content-section">
+                    <h2>Francia</h2>
+                    <p>Borgoña, Burdeos, Champagne, Rhône - cada región con características únicas y regulaciones estrictas.</p>
+                    <h2>Italia</h2>
+                    <p>Toscana (Chianti), Piamonte (Barolo), Veneto (Prosecco) - tradición milenaria.</p>
+                    <h2>España</h2>
+                    <p>Rioja, Ribera del Duero, Jerez - vinos con denominación de origen protegida.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="brandy-cognac" style="display: none;" aria-labelledby="t-brandy-cognac">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-brandy-cognac">BRANDY Y COGNAC</h1>
+                <p class="panel__subtitle">El arte de destilar vino</p>
+            </div>
+            <div class="panel__body">
+                <div class="content-section">
+                    <h2>Cognac</h2>
+                    <p>Solo puede producirse en la región de Cognac, Francia. Usa uvas Ugni Blanc y doble destilación en alambiques de cobre.</p>
+                    <h2>Armagnac</h2>
+                    <p>La región gascona produce el brandy más antiguo de Francia, con destilación única y envejecimiento largo.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="gin-historia" style="display: none;" aria-labelledby="t-gin-historia">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-gin-historia">HISTORIA COMPLETA DEL GIN</h1>
+                <p class="panel__subtitle">Desde Holanda hasta el mundo</p>
+            </div>
+            <div class="panel__body">
+                <div class="content-section">
+                    <h2>Orígenes holandeses</h2>
+                    <p>Creado como medicamento en el siglo XVII, el genebra holandés era más dulce y con cuerpo que el gin moderno.</p>
+                    <h2>Revolución inglesa</h2>
+                    <p>El London Dry Gin evolucionó durante el siglo XVIII, más seco y con predominio de enebro.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="gin-clasico" style="display: none;" aria-labelledby="t-gin-clasico">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-gin-clasico">GIN CLÁSICO INGLÉS</h1>
+                <p class="panel__subtitle">London Dry Gin y sus variantes</p>
+            </div>
+            <div class="panel__body">
+                <div class="content-section">
+                    <h2>Características</h2>
+                    <p>Seco, con predominio de enebro, sin azúcares añadidos, destilado a alta graduación.</p>
+                    <h2>Marcas icónicas</h2>
+                    <p>Beefeater, Tanqueray, Gordon's, Bombay Sapphire - cada una con su perfil único.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="rum-historia" style="display: none;" aria-labelledby="t-rum-historia">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-rum-historia">HISTORIA COMPLETA DEL RUM</h1>
+                <p class="panel__subtitle">El espíritu del Caribe</p>
+            </div>
+            <div class="panel__body">
+                <div class="content-section">
+                    <h2>Orígenes coloniales</h2>
+                    <p>Desarrollado en las plantaciones de caña de azúcar del Caribe, el rum era inicialmente un subproducto de la producción de azúcar.</p>
+                    <h2>Expansión global</h2>
+                    <p>Los marineros y piratas difundieron el rum por todo el mundo, convirtiéndolo en el primer espíritu verdaderamente global.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="rum-caribe" style="display: none;" aria-labelledby="t-rum-caribe">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-rum-caribe">RUM DEL CARIBE</h1>
+                <p class="panel__subtitle">Las islas del ron</p>
+            </div>
+            <div class="panel__body">
+                <div class="content-section">
+                    <h2>Estilos por región</h2>
+                    <ul>
+                        <li><strong>Jamaica:</strong> Pesado, funky, alto en ésteres</li>
+                        <li><strong>Barbados:</strong> Equilibrado, notas de miel</li>
+                        <li><strong>Cuba:</strong> Ligero, suave, ideal para cócteles</li>
+                        <li><strong>Martinica:</strong> Agricole, de caña fresca</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="cocktail-historia" style="display: none;" aria-labelledby="t-cocktail-historia">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-cocktail-historia">HISTORIA DE LOS CÓCTELES</h1>
+                <p class="panel__subtitle">El arte de mezclar bebidas</p>
+            </div>
+            <div class="panel__body">
+                <div class="content-section">
+                    <h2>Primeros cócteles</h2>
+                    <p>Los primeros cócteles eran simples mezclas de alcohol, azúcar, agua y bitters, considerados medicinales.</p>
+                    <h2>Era dorada</h2>
+                    <p>Finales del siglo XIX y principios del XX vieron la creación de cócteles clásicos que perduran hasta hoy.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="cocktail-clasicos" style="display: none;" aria-labelledby="t-cocktail-clasicos">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-cocktail-clasicos">CÓCTELES CLÁSICOS</h1>
+                <p class="panel__subtitle">Las recetas que definieron la mixología</p>
+            </div>
+            <div class="panel__body">
+                <div class="content-section">
+                    <h2>Cócteles icónicos</h2>
+                    <ul>
+                        <li><strong>Old Fashioned:</strong> Whisky, azúcar, bitters, naranja</li>
+                        <li><strong>Martini:</strong> Gin y vermut seco</li>
+                        <li><strong>Manhattan:</strong> Whisky, vermut rojo, bitters</li>
+                        <li><strong>Daiquiri:</strong> Ron, limón, azúcar</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="jerry-thomas" style="display: none;" aria-labelledby="t-jerry-thomas">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-jerry-thomas">VIDA Y OBRA DE JERRY THOMAS</h1>
+                <p class="panel__subtitle">El padre de la mixología moderna</p>
+            </div>
+            <div class="panel__body">
+                <div class="content-section">
+                    <h2>Biografía</h2>
+                    <p>Nacido en 1830, Thomas trabajó en hoteles de lujo en Nueva York y San Francisco, ganando fama por sus espectáculos y cócteles innovadores.</p>
+                    <h2>Legado</h2>
+                    <p>Su libro de 1862 estableció las bases de la mixología profesional, con 236 recetas y técnicas estandarizadas.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="mixologia-clasica" style="display: none;" aria-labelledby="t-mixologia-clasica">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-mixologia-clasica">MIXOLOGÍA CLÁSICA</h1>
+                <p class="panel__subtitle">Técnicas y principios fundamentales</p>
+            </div>
+            <div class="panel__body">
+                <div class="content-section">
+                    <h2>Principios básicos</h2>
+                    <ul>
+                        <li>Balance de sabores</li>
+                        <li>Calidad de ingredientes</li>
+                        <li>Técnica precisa</li>
+                        <li>Presentación impecable</li>
+                    </ul>
+                    <h2>Herramientas esenciales</h2>
+                    <p>Shaker, jigger, strainer, bar spoon - cada herramienta con su propósito específico en la creación del cóctel perfecto.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+                <div class="about-tech">
+                    <h3 class="tech-title">Tecnología</h3>
+                    <p class="tech-description">Construido con tecnologías modernas para rendimiento y accesibilidad.</p>
+                    <div class="tech-stack">
+                        <div class="tech-item">
+                            <i class="fa-brands fa-html5"></i>
+                            <span>HTML5</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fa-brands fa-css3-alt"></i>
+                            <span>CSS3</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fa-brands fa-js"></i>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fa-solid fa-mobile-screen"></i>
+                            <span>Responsive</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Note -->
+                <div class="about-footer">
+                    <div class="footer-icon">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <div class="footer-content">
+                        <p>
+                            <strong>Nota importante:</strong> BARMASTER promueve el consumo responsable de alcohol. 
+                            Todo el contenido es de carácter educativo. Las marcas mencionadas pertenecen a sus respectivos dueños.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- Acerca de Nosotros -->
+        <section class="panel" id="acerca" aria-labelledby="t-acerca">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-acerca">ACERCA DE NOSOTROS</h1>
+                <p class="panel__subtitle">Plataforma educativa gratuita dedicada al arte y ciencia de la mixología</p>
+            </div>
+            <div class="panel__body">
+                <div class="about-container">
+                    <!-- Corporate Hero Actualizado -->
+                    <div class="about-hero corporate">
+                        <div class="hero-badge corporate">PROYECTO EDUCATIVO 2026</div>
+                        <h2 class="hero-title">Líderes en Educación<br><span class="hero-accent">Mixológica Digital</span></h2>
+                        <p class="hero-description">
+                            BARMASTER es la plataforma educativa líder en mixología, ofreciendo acceso gratuito a más de 100 recetas profesionales, 
+                            9,000 años de historia del alcohol y técnicas de bartending de nivel mundial. Nos comprometemos con la educación 
+                            responsable y el consumo consciente, haciendo accesible el arte de la mixología para todos.
+                        </p>
+                        <div class="hero-stats corporate">
+                            <div class="stat-item">
+                                <span class="stat-number">100+</span>
+                                <span class="stat-label">Recetas Premium</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">9K</span>
+                                <span class="stat-label">Años de Historia</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">50+</span>
+                                <span class="stat-label">Eventos Históricos</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Gratuito</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Professional Services Actualizado -->
+                    <div class="services-section">
+                        <h3 class="section-title">Nuestra Plataforma Educativa</h3>
+                        <div class="services-grid">
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="service-content">
+                                    <h4>Contenido Premium</h4>
+                                    <p>100+ recetas profesionales con técnicas avanzadas, variaciones modernas y secretos de bartending de nivel mundial.</p>
+                                    <ul class="service-features">
+                                        <li>Recetas clásicas y contemporáneas</li>
+                                        <li>Técnicas avanzadas de preparación</li>
+                                        <li>Variaciones y modernizaciones</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-history"></i>
+                                </div>
+                                <div class="service-content">
+                                    <h4>Historia Inmersiva</h4>
+                                    <p>9,000 años de evolución del alcohol con 50+ eventos históricos, desde antiguas civilizaciones hasta la mixología contemporánea.</p>
+                                    <ul class="service-features">
+                                        <li>Línea temporal interactiva</li>
+                                        <li>Contexto cultural detallado</li>
+                                        <li>Evolución de técnicas</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <div class="service-content">
+                                    <h4>Herramientas Inteligentes</h4>
+                                    <p>Sistema de búsqueda avanzada, filtros inteligentes y colección personal de favoritos para descubrir y organizar recetas.</p>
+                                    <ul class="service-features">
+                                        <li>Búsqueda por ingredientes</li>
+                                        <li>Filtros personalizados</li>
+                                        <li>Sistema de favoritos</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Expert Team Actualizado -->
+                    <div class="team-section">
+                        <h3 class="section-title">Nuestra Misión 2026</h3>
+                        <div class="team-grid">
+                            <div class="team-member">
+                                <div class="member-avatar">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="member-info">
+                                    <h4>Pasión Mixológica</h4>
+                                    <p>Desarrollado por apasionados que buscan democratizar el conocimiento de bartending, haciendo accesible el arte de los cócteles para todos.</p>
+                                    <div class="member-credentials">
+                                        <span class="credential">Educación Gratuita</span>
+                                        <span class="credential">Acceso Universal</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="team-member">
+                                <div class="member-avatar">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <div class="member-info">
+                                    <h4>Investigación Avanzada</h4>
+                                    <p>Comprometidos con la investigación rigurosa de 9,000 años de historia, verificando fuentes y presentando contexto cultural preciso.</p>
+                                    <div class="member-credentials">
+                                        <span class="credential">50+ Eventos Históricos</span>
+                                        <span class="credential">Verificación Académica</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="team-member">
+                                <div class="member-avatar">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div class="member-info">
+                                    <h4>Innovación Digital</h4>
+                                    <p>Plataforma moderna con acordeones interactivos, búsqueda inteligente y experiencia optimizada para aprendizaje efectivo.</p>
+                                    <div class="member-credentials">
+                                        <span class="credential">Tecnología 2026</span>
+                                        <span class="credential">UX Moderna</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Corporate Values Actualizado -->
+                    <div class="values-section">
+                        <h3 class="section-title">Nuestros Principios 2026</h3>
+                        <div class="values-grid">
+                            <div class="value-item">
+                                <div class="value-icon">
+                                    <i class="fas fa-book-open"></i>
+                                </div>
+                                <h4>Educación Gratuita</h4>
+                                <p>Comprometidos con ofrecer acceso completo y gratuito a 100+ recetas profesionales, 9,000 años de historia y técnicas de nivel mundial.</p>
+                            </div>
+                            
+                            <div class="value-item">
+                                <div class="value-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <h4>Verdad Histórica</h4>
+                                <p>Investigación rigurosa con 50+ eventos históricos verificados, fuentes académicas y contexto cultural preciso para cada época.</p>
+                            </div>
+                            
+                            <div class="value-item">
+                                <div class="value-icon">
+                                    <i class="fas fa-hands-helping"></i>
+                                </div>
+                                <h4>Consumo Responsable</h4>
+                                <p>Promovemos activamente el consumo consciente de alcohol, educación sobre límites y prácticas seguras en bartending y coctelería.</p>
+                            </div>
+                            
+                            <div class="value-item">
+                                <div class="value-icon">
+                                    <i class="fas fa-glass-martini-alt"></i>
+                                </div>
+                                <h4>Innovación Digital</h4>
+                                <p>Plataforma moderna con acordeones interactivos, búsqueda inteligente y experiencia optimizada para aprendizaje efectivo y accesible.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Partnership Section -->
+                    <div class="partnership-section">
+                        <h3 class="section-title">Nuestras Fuentes</h3>
+                        <div class="partnership-content">
+                            <div class="partnership-text">
+                                <p>Nuestro contenido se basa en investigación histórica rigurosa, fuentes académicas y conocimiento especializado en mixología. Buscamos presentar información verificable y contextualizada.</p>
+                            </div>
+                            <div class="partnership-logos">
+                                <div class="partner-placeholder">📚 Investigación Histórica</div>
+                                <div class="partner-placeholder">🔍 Fuentes Académicas</div>
+                                <div class="partner-placeholder">📖 Conocimiento Especializado</div>
+                                <div class="partner-placeholder">✅ Verificación Rigurosa</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Professional CTA -->
+                    <div class="cta-section professional">
+                        <h3>Descubre el Mundo de la Mixología</h3>
+                        <p>Te invitamos a explorar nuestra plataforma educativa y sumergirte en el fascinante universo de los cócteles y la historia del alcohol.</p>
+                        <div class="cta-buttons">
+                            <button class="btn btn-primary" onclick="app.goTo('recetas')">
+                                <i class="fas fa-cocktail"></i>
+                                Explorar Recetas
+                            </button>
+                            <button class="btn btn-secondary" onclick="app.goTo('historia')">
+                                <i class="fas fa-history"></i>
+                                Viajar en el Tiempo
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Professional Footer -->
+                    <div class="footer-content">
+                        <div class="legal-notice">
+                            <h4>Información Corporativa</h4>
+                            <p>
+                                BARMASTER es una plataforma educativa profesional certificada. Promovemos el consumo responsable 
+                                y cumplimos con todas las regulaciones educativas y de seguridad alimentaria. 
+                                Todas las marcas mencionadas son propiedad de sus respectivos dueños.
+                            </p>
+                            <div class="corporate-info">
+                                <span>© 2026 BARMASTER</span>
+                                <span>•</span>
+                                <span>Miembros de International Bartenders Association</span>
+                                <span>•</span>
+                                <span>Certificación ISO 9001:2015</span>
+                            </div>
+                            <div class="legal-links">
+                                <a href="terminos.html" target="_blank">Términos Legales</a>
+                                <span>•</span>
+                                <a href="#" onclick="alert('Política de privacidad en construcción')">Privacidad</a>
+                                <span>•</span>
+                                <a href="#" onclick="alert('Política de cookies en construcción')">Cookies</a>
+                                <span>•</span>
+                                <a href="#" onclick="alert('Contacto: legal@barmaster.com')">Contacto Legal</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Legal Terms Section -->
+        <section class="panel" id="terminos" aria-labelledby="t-terminos">
+            <div class="panel__head">
+                <h1 class="panel__title" id="t-terminos">TÉRMINOS LEGALES</h1>
+                <p class="panel__subtitle">Condiciones de uso, política de monetización y privacidad</p>
+            </div>
+            <div class="panel__body">
+                <!-- Legal Accordion -->
+                <div class="legal-accordion">
+                    <!-- Aceptación -->
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span class="accordion-number">1</span>
+                            <span class="accordion-title">Aceptación de Términos</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-text">
+                                <p>Al acceder y utilizar BARMASTER, aceptas estos términos y condiciones. Si no estás de acuerdo, no debes utilizar nuestro servicio.</p>
+                                <div class="legal-info-box">
+                                    <div class="info-row">
+                                        <span class="info-label">Servicio:</span>
+                                        <span class="info-value">Aplicación gratuita de recetas</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Financiamiento:</span>
+                                        <span class="info-value">Publicidad y patrocinio</span>
+                                    </div>
+                                </div>
+                                <div class="legal-warning">
+                                    <strong>⚠️ Importante:</strong> Contenido destinado únicamente a mayores de edad.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Servicio -->
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span class="accordion-number">2</span>
+                            <span class="accordion-title">Nuestro Servicio</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-text">
+                                <p>BARMASTER es una plataforma digital que ofrece:</p>
+                                <ul class="legal-list">
+                                    <li>Recetas detalladas de cócteles y bebidas</li>
+                                    <li>Guías de técnicas de bartending</li>
+                                    <li>Información histórica sobre bebidas</li>
+                                    <li>Herramientas de búsqueda y filtrado</li>
+                                    <li>Contenido educativo premium</li>
+                                </ul>
+                                <div class="legal-info-box">
+                                    <div class="info-row">
+                                        <span class="info-label">Acceso:</span>
+                                        <span class="info-value">100% gratuito</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Plataformas:</span>
+                                        <span class="info-value">Web, móvil, tablet</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monetización -->
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span class="accordion-number">3</span>
+                            <span class="accordion-title">Monetización y Publicidad</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-text">
+                                <p>BARMASTER es gratuito gracias a:</p>
+                                <ul class="legal-list">
+                                    <li>Anuncios publicitarios display</li>
+                                    <li>Publicidad nativa en contenido</li>
+                                    <li>Enlaces de afiliados</li>
+                                    <li>Contenido patrocinado</li>
+                                    <li>Programas de partnerships</li>
+                                </ul>
+                                <div class="legal-info-box">
+                                    <div class="info-row">
+                                        <span class="info-label">Publicidad:</span>
+                                        <span class="info-value">Basada en intereses y ubicación</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Afiliados:</span>
+                                        <span class="info-value">Comisiones sin costo adicional</span>
+                                    </div>
+                                </div>
+                                <div class="legal-highlight">
+                                    <strong>📊 Transparencia:</strong> Todo contenido patrocinado está claramente identificado.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacidad -->
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span class="accordion-number">4</span>
+                            <span class="accordion-title">Privacidad y Datos</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-text">
+                                <p>Recopilamos información para mejorar nuestros servicios:</p>
+                                <div class="legal-info-box">
+                                    <div class="info-row">
+                                        <span class="info-label">Ubicación:</span>
+                                        <span class="info-value">IP, geolocalización</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Dispositivo:</span>
+                                        <span class="info-value">Tipo, navegador, SO</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Uso:</span>
+                                        <span class="info-value">Páginas visitadas, tiempo</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Compartir:</span>
+                                        <span class="info-value">Datos anónimos con socios</span>
+                                    </div>
+                                </div>
+                                <p>Utilizamos cookies para personalizar contenido y anuncios.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Responsabilidad -->
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span class="accordion-number">5</span>
+                            <span class="accordion-title">Uso Responsable</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-text">
+                                <p>BARMASTER promueve el consumo responsable. No somos responsables por:</p>
+                                <ul class="legal-list">
+                                    <li>Daños por consumo excesivo</li>
+                                    <li>Accidentes bajo efectos del alcohol</li>
+                                    <li>Problemas de salud relacionados</li>
+                                    <li>Incumplimiento de leyes locales</li>
+                                </ul>
+                                <div class="legal-info-box">
+                                    <div class="info-row">
+                                        <span class="info-label">Edad mínima:</span>
+                                        <span class="info-value">18 o 21 años según país</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Recomendación:</span>
+                                        <span class="info-value">Beber con moderación</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Propiedad Intelectual -->
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span class="accordion-number">6</span>
+                            <span class="accordion-title">Propiedad Intelectual</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-text">
+                                <p>Todo el contenido está protegido por derechos de autor:</p>
+                                <ul class="legal-list">
+                                    <li>Textos y descripciones</li>
+                                    <li>Fotografías e imágenes</li>
+                                    <li>Diseño y funcionalidades</li>
+                                    <li>Código fuente</li>
+                                </ul>
+                                <div class="legal-info-box">
+                                    <div class="info-row">
+                                        <span class="info-label">Uso permitido:</span>
+                                        <span class="info-value">Personal y educativo</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Restricción:</span>
+                                        <span class="info-value">No uso comercial</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cumplimiento Normativo -->
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span class="accordion-number">7</span>
+                            <span class="accordion-title">Cumplimiento Normativo</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-text">
+                                <p>Nos comprometemos con el cumplimiento normativo:</p>
+                                <ul class="legal-list">
+                                    <li>Protección de datos personales</li>
+                                    <li>Transparencia en publicidad</li>
+                                    <li>Uso responsable de alcohol</li>
+                                    <li>Respeto a derechos de autor</li>
+                                </ul>
+                                <div class="legal-info-box">
+                                    <div class="info-row">
+                                        <span class="info-label">Actualizaciones:</span>
+                                        <span class="info-value">Periódicas para cumplimiento</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Notificación:</span>
+                                        <span class="info-value">Cambios importantes informados</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modificaciones -->
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">
+                            <span class="accordion-number">8</span>
+                            <span class="accordion-title">Modificaciones</span>
+                            <span class="accordion-icon">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-text">
+                                <p>Nos reservamos el derecho de modificar estos términos en cualquier momento.</p>
+                                <div class="legal-info-box">
+                                    <div class="info-row">
+                                        <span class="info-label">Vigencia:</span>
+                                        <span class="info-value">Al publicarse en el sitio</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Notificación:</span>
+                                        <span class="info-value">Avisos en sitio y email</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Versión:</span>
+                                        <span class="info-value">1.0 - 9 de mayo de 2026</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button onclick="window.print()" class="btn-secondary">
+                        📄 Imprimir Términos
+                    </button>
+                </div>
+
+                <!-- Footer Info -->
+                <div class="footer-note">
+                    <div class="footer-icon">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <div class="footer-content">
+                        <p>
+                            <strong>Nota importante:</strong> BARMASTER promueve el consumo responsable de alcohol. 
+                            Todo el contenido es de carácter educativo. Las marcas mencionadas pertenecen a sus respectivos dueños.
+                        </p>
+                        <div class="corporate-info">
+                            <span>© 2026 BARMASTER</span>
+                            <span>•</span>
+                            <span>Versión 1.0</span>
+                            <span>•</span>
+                            <span>Actualizado: 9 de mayo de 2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+                </main>
+
+    <nav class="bottomnav" role="navigation" aria-label="Navegación inferior">
+        <a class="bottomnav__link is-active" href="#inicio" data-section="inicio"><span>Inicio</span></a>
+        <a class="bottomnav__link" href="#recetas" data-section="recetas"><span>Recetas</span></a>
+        <a class="bottomnav__link" href="#favoritos" data-section="favoritos"><span>Favoritos</span></a>
+        <a class="bottomnav__link" href="#historia" data-section="historia"><span>Historia</span></a>
+        <a class="bottomnav__link" href="#acerca" data-section="acerca"><span>Nosotros</span></a>
+        <a class="bottomnav__link" href="#terminos" data-section="terminos"><span>Legal</span></a>
+    </nav>
+
+    
+    <!-- Advertising Placeholder - Only loads if cookies accepted -->
+    <div id="adContainer" style="display: none;">
+        <!-- AdSense or other ad network code would go here -->
+    </div>
+    
+    <!-- Cookie Banner - Professional, shows only after loading screen -->
+    <script>
+        // Clear consent on every page load to always show banner (testing mode)
+        localStorage.removeItem('barmaster-cookie-consent');
+        
+        window.showCookieBanner = function() {
+            // Don't show if loading screen is still visible
+            var loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen && !loadingScreen.classList.contains('hidden')) return;
+            
+            // Remove any existing banners
+            var existing = document.getElementById('cookieBanner');
+            if (existing) existing.remove();
+            
+            // Professional banner design
+            var banner = document.createElement('div');
+            banner.id = 'cookieBanner';
+            banner.innerHTML = '<div style="display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; max-width: 600px; margin: 0 auto;"><div style="flex: 1; min-width: 250px;"><div style="font-size: 0.95rem; color: #fff; font-weight: 600; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.5rem;"><span style="font-size: 1.1rem;">🍪</span> Tu privacidad importa</div><div style="font-size: 0.8rem; color: #aaa; line-height: 1.4;">Utilizamos cookies esenciales y de publicidad para mejorar tu experiencia.</div></div><div style="display: flex; gap: 0.75rem; flex-shrink: 0;"><button onclick="handleCookieChoice(false)" style="padding: 0.6rem 1.2rem; border: 1px solid #444; border-radius: 8px; font-size: 0.8rem; cursor: pointer; background: transparent; color: #bbb; font-weight: 500; transition: all 0.2s;" onmouseover="this.style.borderColor=\'#D4AF37\';this.style.color=\'#fff\'" onmouseout="this.style.borderColor=\'#444\';this.style.color=\'#bbb\'">Rechazar</button><button onclick="handleCookieChoice(true)" style="padding: 0.6rem 1.2rem; border: none; border-radius: 8px; font-size: 0.8rem; cursor: pointer; background: linear-gradient(135deg, #D4AF37, #B8860B); color: #1a1a1a; font-weight: 600; transition: all 0.2s; box-shadow: 0 2px 8px rgba(212,175,55,0.3);" onmouseover="this.style.transform=\'translateY(-1px)\';this.style.boxShadow=\'0 4px 12px rgba(212,175,55,0.4)\'" onmouseout="this.style.transform=\'translateY(0)\';this.style.boxShadow=\'0 2px 8px rgba(212,175,55,0.3)\'">Aceptar todo</button></div></div>';
+            
+            banner.style.cssText = 'position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); width: calc(100% - 48px); max-width: 700px; background: linear-gradient(145deg, rgba(35, 35, 35, 0.98), rgba(25, 25, 25, 0.98)); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 16px; padding: 1.25rem 1.5rem; z-index: 9999; font-family: system-ui, -apple-system, sans-serif; box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03); backdrop-filter: blur(20px); opacity: 0; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);';
+            
+            document.body.appendChild(banner);
+            
+            // Animate in
+            setTimeout(function() {
+                banner.style.opacity = '1';
+                banner.style.transform = 'translateX(-50%) translateY(0)';
+            }, 50);
+        };
+        
+        window.handleCookieChoice = function(accepted) {
+            var banner = document.getElementById('cookieBanner');
+            if (accepted) {
+                localStorage.setItem('barmaster-cookie-consent', 'accepted');
+                localStorage.setItem('barmaster-essential-cookies', 'true');
+                localStorage.setItem('barmaster-advertising-cookies', 'true');
+            } else {
+                localStorage.setItem('barmaster-cookie-consent', 'rejected');
+            }
+            // Animate out
+            if (banner) {
+                banner.style.opacity = '0';
+                banner.style.transform = 'translateX(-50%) translateY(20px)';
+                setTimeout(function() { banner.remove(); }, 500);
+            }
+        };
+        
+        // Show only after loading screen disappears
+        function waitForLoadingScreen() {
+            var loadingScreen = document.getElementById('loadingScreen');
+            if (!loadingScreen || loadingScreen.classList.contains('hidden')) {
+                // Loading screen already gone, show banner
+                setTimeout(window.showCookieBanner, 300);
+            } else {
+                // Watch for loading screen to disappear
+                var observer = new MutationObserver(function(mutations) {
+                    if (loadingScreen.classList.contains('hidden') || !document.getElementById('loadingScreen')) {
+                        observer.disconnect();
+                        setTimeout(window.showCookieBanner, 300);
+                    }
+                });
+                observer.observe(loadingScreen, { attributes: true, attributeFilter: ['class'] });
+            }
+        }
+        
+        // Start checking when page loads
+        if (document.readyState === 'complete') {
+            waitForLoadingScreen();
+        } else {
+            window.addEventListener('load', waitForLoadingScreen);
+        }
+    </script>
+    
+    
+    <script src="script.js"></script>
+    
+    <script>
+        // Sistema de transición elegante entre páginas
+        let isFirstLoad = true;
+        
+        function showPageTransition(callback) {
+            const pageTransition = document.getElementById('pageTransition');
+            
+            // Mostrar transición
+            if (pageTransition) {
+                pageTransition.classList.add('active');
+            }
+            
+            // Ejecutar callback después de la transición
+            setTimeout(() => {
+                if (pageTransition) {
+                    pageTransition.classList.remove('active');
+                }
+                if (callback) {
+                    callback();
+                }
+            }, 800);
+        }
+        
+        // Accordion toggle function
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const wasActive = item.classList.contains('active');
+            
+            // Close all accordion items
+            document.querySelectorAll('.accordion-item').forEach(accordionItem => {
+                accordionItem.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!wasActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Open first accordion item by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstAccordion = document.querySelector('.accordion-item');
+            if (firstAccordion) {
+                firstAccordion.classList.add('active');
+            }
+            
+            // Loading Screen functionality - Slower and smoother
+            const loadingScreen = document.getElementById('loadingScreen');
+            const loadingBar = loadingScreen.querySelector('.loading-bar');
+            const loadingPercentage = loadingScreen.querySelector('.loading-percentage');
+            
+            let progress = 0;
+            let isComplete = false;
+            const totalDuration = 8000; // 8 seconds total
+            const updateInterval = 80; // Update every 80ms for smoothness
+            const totalSteps = totalDuration / updateInterval;
+            let currentStep = 0;
+            
+            const updateProgress = () => {
+                currentStep++;
+                
+                // Smooth easing curve for progress
+                const easeProgress = 1 - Math.pow(1 - (currentStep / totalSteps), 3);
+                progress = easeProgress * 100;
+                
+                if (progress >= 100) {
+                    progress = 100;
+                    isComplete = true;
+                }
+                
+                loadingBar.style.width = progress + '%';
+                if (loadingPercentage) {
+                    loadingPercentage.textContent = Math.round(progress) + '%';
+                }
+                
+                if (!isComplete) {
+                    setTimeout(updateProgress, updateInterval);
+                } else {
+                    // Pause at 100% before hiding
+                    setTimeout(hideLoadingScreen, 600);
+                }
+            };
+            
+            const hideLoadingScreen = () => {
+                loadingScreen.classList.add('hidden');
+                // Remove from DOM after transition completes (2s)
+                setTimeout(() => {
+                    loadingScreen.remove();
+                }, 2000);
+            };
+            
+            // Start progress
+            updateProgress();
+        });
+
+        // Animación suave de entrada para la sección de inicio
+        document.addEventListener('DOMContentLoaded', () => {
+            if (isFirstLoad) {
+                isFirstLoad = false;
+                
+                setTimeout(() => {
+                    const homeHero = document.querySelector('.home-hero');
+                    if (homeHero) {
+                        homeHero.classList.add('is-loaded');
+                    }
+                }, 300);
+            } else {
+                // Para navegación posterior, solo animar el hero
+                setTimeout(() => {
+                    const homeHero = document.querySelector('.home-hero');
+                    if (homeHero) {
+                        homeHero.classList.add('is-loaded');
+                    }
+                }, 300);
+            }
+        });
+    </script>
+    
+</body>
+</html>
