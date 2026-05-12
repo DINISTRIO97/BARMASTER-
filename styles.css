@@ -178,19 +178,6 @@ html[data-theme="light"] .bottomnav{box-shadow:0 18px 55px rgba(26,20,16,.16)}
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 12px 40px rgba(240, 216, 96, 0.3);
     border-color: var(--gold);
-    left:0;
-    right:0;
-    height:3px;
-    background:linear-gradient(90deg, var(--gold), rgba(212,175,55,0.6));
-    border-radius:12px 12px 0 0;
-}
-.recipe-card::after{
-    display:none;
-}
-.recipe-card:hover{
-    border-color:var(--gold);
-    transform:translateY(-1px);
-    box-shadow:0 4px 12px rgba(212,175,55,.15);
 }
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 @keyframes textShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}

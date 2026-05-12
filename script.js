@@ -4294,6 +4294,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize global event listeners
     window.app.initializeGlobalEvents();
     
+    // Renderizar recetas inicialmente
+    window.app.lazyLoadRecipes();
+    
+    // Forzar renderizado si estamos en sección de recetas
+    setTimeout(() => {
+        const currentSection = window.location.hash.replace('#', '') || 'inicio';
+        if (currentSection === 'recetas') {
+            window.app.renderRecipes();
+        }
+    }, 100);
+    
     // Renderizado diferido de secciones secundarias
     requestIdleCallback(() => {
         if (window.app.favorites.length > 0) {
