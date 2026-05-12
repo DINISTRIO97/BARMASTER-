@@ -27,16 +27,18 @@ class Barmaster {
             this.loadFavorites();
             this.loadCourses();
             this.initRecommendationEngine();
-            this.bindEventListeners();
-            this.checkInitialSection();
+            // this.checkInitialSection();
             this.initDynamicTitles();
+            this.bindSearch();
+            this.bindAdvancedFilters();
             
             // Lazy load recetas solo cuando se necesiten
             await this.lazyLoadRecipes();
             
             // Renderizado diferido para no bloquear UI
             requestIdleCallback(() => {
-                this.renderFavorites();
+                this.updateFavoritesSection();
+                this.updateFavoritesCounter();
                 this.renderCourses();
                 // Inicializar recomendaciones después de cargar recetas
                 if (this.recipes) {
@@ -748,7 +750,7 @@ class Barmaster {
                 this.initAdvertising();
             }
         } else {
-            this.favorites = [];
+            // this.favorites = []; // Desvinculado del rechazo de cookies
             this.courseProgress = {};
         }
     }
@@ -2942,32 +2944,213 @@ class Barmaster {
         });
     }
 
-    searchRecipes(query) {
-        try {
-            if (!query || query.trim() === '') {
-                this.filteredRecipes = [...this.recipes];
-            } else {
-                const searchTerm = query.toLowerCase().trim();
-                this.filteredRecipes = this.recipes.filter(recipe => {
-                    if (!recipe || !recipe.name || !recipe.description) {
-                        return false;
-                    }
-                    
-                    const nameMatch = recipe.name.toLowerCase().includes(searchTerm);
-                    const descriptionMatch = recipe.description.toLowerCase().includes(searchTerm);
-                    const ingredientsMatch = Array.isArray(recipe.ingredients) && 
-                        recipe.ingredients.some(ing => ing && ing.toLowerCase().includes(searchTerm));
-                    
-                    return nameMatch || descriptionMatch || ingredientsMatch;
-                });
+    // Buscador Profesional
+    initProfessionalSearch() {
+        const searchInput = document.getElementById('searchInput');
+        const clearBtn = document.getElementById('clearSearch');
+        const randomBtn = document.getElementById('randomRecipe');
+        const suggestionChips = document.querySelectorAll('.suggestion-chip');
+        
+        if (!searchInput) return;
+        
+        let searchTimeout;
+        
+        // Evento principal de búsqueda
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            const query = e.target.value;
+            
+            // Mostrar/ocultar botón de limpiar
+            if (clearBtn) {
+                clearBtn.classList.toggle('visible', query.length > 0);
             }
-            this.updateSearchStats();
-            this.renderRecipes();
-        } catch (error) {
-            console.error('Error en búsqueda de recetas:', error);
-            this.filteredRecipes = [...this.recipes];
-            this.renderRecipes();
+            
+            // Debounce optimizado
+            searchTimeout = setTimeout(() => {
+                this.executeProfessionalSearch(query);
+            }, 250);
+        });
+        
+        // Botón de limpiar
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                clearBtn.classList.remove('visible');
+                this.executeProfessionalSearch('');
+                searchInput.focus();
+            });
         }
+        
+        // Botón de receta aleatoria
+        if (randomBtn) {
+            randomBtn.addEventListener('click', () => {
+                this.showRandomRecipe();
+            });
+        }
+        
+        // Chips de sugerencias
+        suggestionChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                const searchTerm = chip.dataset.search;
+                searchInput.value = searchTerm;
+                this.executeProfessionalSearch(searchTerm);
+                searchInput.focus();
+            });
+        });
+        
+        // Atajos de teclado
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (clearBtn && clearBtn.classList.contains('visible')) {
+                    clearBtn.click();
+                }
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                this.executeProfessionalSearch(searchInput.value);
+            }
+        });
+        
+        // Inicializar estadísticas
+        this.updateProfessionalStats();
+    }
+    
+    executeProfessionalSearch(query) {
+        const q = query.toLowerCase().trim();
+        
+        if (!q) {
+            this.filteredRecipes = [...this.recipes];
+        } else {
+            // Algoritmo de búsqueda profesional con puntuación
+            this.filteredRecipes = this.recipes.map(recipe => {
+                let score = 0;
+                
+                // Puntuación por nombre exacto (100 puntos)
+                if (recipe.name.toLowerCase() === q) score += 100;
+                // Puntuación por nombre parcial (50 puntos)
+                else if (recipe.name.toLowerCase().includes(q)) score += 50;
+                
+                // Puntuación por ingredientes exactos (30 puntos)
+                if (recipe.ingredients && recipe.ingredients.some(ing => 
+                    ing.toLowerCase() === q)) score += 30;
+                // Puntuación por ingredientes parciales (15 puntos)
+                else if (recipe.ingredients && recipe.ingredients.some(ing => 
+                    ing.toLowerCase().includes(q))) score += 15;
+                
+                // Puntuación por descripción (10 puntos)
+                if (recipe.description.toLowerCase().includes(q)) score += 10;
+                
+                return { recipe, score };
+            })
+            .filter(item => item.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .map(item => item.recipe);
+        }
+        
+        this.updateProfessionalStats();
+        this.renderRecipes();
+    }
+    
+    updateProfessionalStats() {
+        const statsElement = document.getElementById('searchStats');
+        if (!statsElement) return;
+        
+        const count = this.filteredRecipes.length;
+        const total = this.recipes.length;
+        const numberElement = statsElement.querySelector('.stats-number');
+        const textElement = statsElement.querySelector('.stats-text');
+        
+        if (numberElement && textElement) {
+            numberElement.textContent = count;
+            textElement.textContent = count === total ? 'recetas disponibles' : 'recetas encontradas';
+        }
+    }
+    
+    showRandomRecipe() {
+        if (!this.recipes || this.recipes.length === 0) return;
+        
+        const randomIndex = Math.floor(Math.random() * this.recipes.length);
+        const randomRecipe = this.recipes[randomIndex];
+        
+        // Filtrar para mostrar solo la receta aleatoria
+        this.filteredRecipes = [randomRecipe];
+        this.updateProfessionalStats();
+        this.renderRecipes();
+        
+        // Scroll al resultado
+        setTimeout(() => {
+            const container = document.getElementById('recipesContainer');
+            if (container) {
+                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 300);
+    }
+    
+    performSearch(query) {
+        const q = query.toLowerCase().trim();
+        console.log('=== BÚSQUEDA DEBUG ===');
+        console.log('Query:', q);
+        console.log('Total recetas:', this.recipes?.length);
+        
+        if (!q) {
+            console.log('Query vacío - mostrando todas');
+            this.filteredRecipes = [...this.recipes];
+        } else {
+            console.log('Filtrando recetas...');
+            this.filteredRecipes = this.recipes.filter(recipe => {
+                const nameMatch = recipe.name.toLowerCase().includes(q);
+                const descMatch = recipe.description.toLowerCase().includes(q);
+                const ingMatch = recipe.ingredients && recipe.ingredients.some(ing => 
+                    String(ing).toLowerCase().includes(q));
+                
+                const match = nameMatch || ingMatch || descMatch;
+                
+                if (match && q.length <= 8) {
+                    console.log('MATCH -', recipe.name);
+                    console.log('  Nombre:', nameMatch);
+                    console.log('  Ingredientes:', ingMatch);
+                    console.log('  Descripción:', descMatch);
+                    console.log('  ---');
+                }
+                
+                return match;
+            });
+            
+            console.log('Resultados encontrados:', this.filteredRecipes.length);
+        }
+        
+        this.updateSearchStats();
+        this.renderRecipes();
+        console.log('=== FIN BÚSQUEDA DEBUG ===');
+    }
+    
+    updateSuggestions(query) {
+        const suggestionsContainer = document.getElementById('searchSuggestions');
+        if (!suggestionsContainer) return;
+        
+        if (!query) {
+            // Mostrar sugerencias populares
+            const popularTerms = ['gin', 'vodka', 'ron', 'whisky', 'margarita', 'mojito'];
+            suggestionsContainer.innerHTML = popularTerms.map(term => 
+                `<span class="suggestion-chip" onclick="window.app.searchTerm('${term}')">${term}</span>`
+            ).join('');
+        } else {
+            // Ocultar sugerencias durante búsqueda activa
+            suggestionsContainer.innerHTML = '';
+        }
+    }
+    
+    searchTerm(term) {
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.value = term;
+            this.performSearch(term);
+            this.updateSuggestions(term);
+        }
+    }
+
+    searchRecipes(query) {
+        // Mantener compatibilidad con código existente
+        this.performSearch(query);
     }
 
     updateSearchStats() {
@@ -3425,15 +3608,28 @@ class Barmaster {
         this.courseProgress = saved ? JSON.parse(saved) : {};
     }
 
+    loadFavorites() {
+        const saved = localStorage.getItem(this.favoritesKey);
+        this.favorites = saved ? JSON.parse(saved) : [];
+    }
+
+    saveFavorites() {
+        localStorage.setItem(this.favoritesKey, JSON.stringify(this.favorites));
+    }
+
     saveCourses() {
         if (!this.canUseCookies()) {
             this.showNotification('No se pueden guardar cursos sin aceptar cookies', 'warning');
             return;
         }
-        localStorage.setItem(this.favoritesKey, JSON.stringify(this.favorites));
+        localStorage.setItem(this.coursesKey, JSON.stringify(this.courseProgress));
     }
 
     toggleFavorite(recipeId) {
+        console.log('=== TOGGLE FAVORITE ===');
+        console.log('Recipe ID:', recipeId);
+        console.log('Favoritos antes:', this.favorites);
+        
         const index = this.favorites.indexOf(recipeId);
         if (index > -1) {
             this.favorites.splice(index, 1);
@@ -3442,20 +3638,36 @@ class Barmaster {
             this.favorites.push(recipeId);
             this.showNotification('Receta agregada a favoritos', 'add');
         }
+        
+        console.log('Favoritos después:', this.favorites);
+        
         this.saveFavorites();
         this.updateFavoritesSection();
         this.updateFavoritesCounter();
+        
+        // Forzar actualización inmediata del DOM
+        setTimeout(() => {
+            this.updateFavoritesSection();
+        }, 100);
     }
 
     updateFavoritesSection() {
+        console.log('=== ACTUALIZANDO FAVORITOS ===');
+        console.log('Favoritos guardados:', this.favorites);
+        console.log('Total recetas disponibles:', this.recipes?.length);
+        
         const favoritesContainer = document.getElementById('favoritesContainer');
         const favoritesCount = document.getElementById('favoritesCount');
         const favoritesFiltered = document.getElementById('favoritesFiltered');
+        
+        console.log('Contenedor encontrado:', !!favoritesContainer);
         
         if (!favoritesContainer) return;
 
         // Obtener recetas favoritas
         let favoriteRecipes = this.recipes.filter(recipe => this.favorites.includes(recipe.id));
+        console.log('Recetas favoritas encontradas:', favoriteRecipes.length);
+        console.log('IDs de recetas favoritas:', favoriteRecipes.map(r => r.id));
         
         // Aplicar búsqueda
         const searchInput = document.getElementById('favoritesSearch');
@@ -3464,7 +3676,7 @@ class Barmaster {
             favoriteRecipes = favoriteRecipes.filter(recipe =>
                 recipe.name.toLowerCase().includes(query) ||
                 recipe.description.toLowerCase().includes(query) ||
-                recipe.ingredients.some(ing => ing.toLowerCase().includes(query))
+                recipe.ingredients.some(ing => String(ing).toLowerCase().includes(query))
             );
         }
         
@@ -3539,11 +3751,17 @@ class Barmaster {
             return;
         }
 
+        console.log('Renderizando favoritos...');
+        console.log('HTML a generar:', favoriteRecipes.length, 'tarjetas');
+        
         favoritesContainer.innerHTML = `
             <div class="favorites-grid">
                 ${favoriteRecipes.map(recipe => this.createFavoriteCard(recipe)).join('')}
             </div>
         `;
+        
+        console.log('HTML generado, longitud:', favoritesContainer.innerHTML.length);
+        console.log('=== FIN ACTUALIZACIÓN FAVORITOS ===');
     }
 
     resetFavoritesFilters() {
@@ -4106,6 +4324,7 @@ class Barmaster {
         }
     }
 
+    
     initializeGlobalEvents() {
         const self = this;
         document.addEventListener('click', (e) => {
@@ -4257,14 +4476,7 @@ class Barmaster {
             }
         });
         
-        // Handle search input
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                self.handleSearch(e.target.value);
-            });
-        }
-        
+                
         // Handle filter changes
         document.addEventListener('change', (e) => {
             if (e.target.matches('.filter-item input[type="checkbox"]')) {
@@ -4301,9 +4513,47 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         const currentSection = window.location.hash.replace('#', '') || 'inicio';
         if (currentSection === 'recetas') {
-            window.app.renderRecipes();
+            if (window.app && window.app.recipes && window.app.renderRecipes) {
+                window.app.renderRecipes();
+            }
         }
     }, 100);
+    
+            
+    // Conectar botones de favoritos directamente
+    setTimeout(() => {
+        const favoriteButtons = document.querySelectorAll('.btn-favorite, .btn-toggle-favorite');
+        favoriteButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const recipeId = button.getAttribute('data-recipe-id') || 
+                               button.closest('.recipe-card')?.dataset.recipeId ||
+                               button.closest('.favorite-card')?.dataset.recipeId;
+                if (recipeId && window.app && window.app.toggleFavorite) {
+                    window.app.toggleFavorite(recipeId);
+                    const isFavorite = window.app.favorites.includes(recipeId);
+                    button.classList.toggle('active', isFavorite);
+                    button.textContent = isFavorite ? 'Favorito' : 'Agregar';
+                }
+            });
+        });
+    }, 400);
+        
+    // Forzar renderizado de recetas siempre
+    setTimeout(() => {
+        if (window.app && window.app.recipes && window.app.renderRecipes) {
+            window.app.renderRecipes();
+        }
+    }, 500);
+    
+        
+    // Forzar actualización de favoritos
+    setTimeout(() => {
+        if (window.app && window.app.updateFavoritesSection) {
+            window.app.updateFavoritesSection();
+        }
+    }, 600);
     
     // Renderizado diferido de secciones secundarias
     requestIdleCallback(() => {

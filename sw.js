@@ -1,7 +1,7 @@
 // BARMASTER Service Worker - Cache Offline y Performance
-const CACHE_NAME = 'barmaster-v1.0.0';
-const STATIC_CACHE = 'barmaster-static-v1.0.0';
-const DYNAMIC_CACHE = 'barmaster-dynamic-v1.0.0';
+const CACHE_NAME = 'barmaster-v1.0.1';
+const STATIC_CACHE = 'barmaster-static-v1.0.1';
+const DYNAMIC_CACHE = 'barmaster-dynamic-v1.0.1';
 
 // Recursos críticos para cache inmediato
 const CRITICAL_RESOURCES = [

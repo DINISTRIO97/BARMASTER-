@@ -139,6 +139,9 @@ html[data-theme="light"] .bottomnav{box-shadow:0 18px 55px rgba(26,20,16,.16)}
 .search-bar input::placeholder{font-style:italic;color:var(--text-muted)}
 .search-bar input:focus::placeholder{color:var(--text-dim)}
 .search-stats{position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:1rem;font-weight:500;letter-spacing:.1px;color:var(--gold);background:rgba(212,175,55,.1);padding:4px 8px;border-radius:6px}
+.search-bar input::placeholder{font-style:italic;color:var(--text-muted)}
+.search-bar input:focus::placeholder{color:var(--text-dim)}
+.search-stats{position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:1rem;font-weight:500;letter-spacing:.1px;color:var(--gold);background:rgba(212,175,55,.1);padding:4px 8px;border-radius:6px}
 
 .advanced-filters{margin-bottom:32px;background:var(--panel);border:1px solid var(--stroke);border-radius:16px;overflow:hidden}
 .filter-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--stroke)}

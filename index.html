@@ -1428,8 +1428,9 @@
             <div class="panel__body">
                 <div class="search-section">
                     <div class="search-bar">
-                        <input type="search" id="searchInput" placeholder="Buscar" aria-label="Buscar recetas">
-                        <div class="search-stats" id="searchStats"></div>
+                        <input type="search" id="searchInput" placeholder="Buscar recetas..." 
+                               aria-label="Buscar recetas">
+                        <div class="search-stats" id="searchStats">Todas las recetas</div>
                     </div>
                 </div>
 
@@ -3222,8 +3223,8 @@
     
     <!-- Cookie Banner - Professional, shows only after loading screen -->
     <script>
-        // Clear consent on every page load to always show banner (testing mode)
-        localStorage.removeItem('barmaster-cookie-consent');
+        // Clear consent on every page load to always show banner (testing mode) - DESACTIVADO
+        // localStorage.removeItem('barmaster-cookie-consent');
         
         window.showCookieBanner = function() {
             // Don't show if loading screen is still visible
