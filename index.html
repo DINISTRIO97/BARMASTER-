@@ -1179,7 +1179,7 @@
     </style>
 </head>
 <body>
-<script src="https://quge5.com/88/tag.min.js" data-zone="238486" async data-cfasync="false"></script>
+
     
     <!-- Loading Screen with Site Background -->
     <div id="loadingScreen" class="loading-screen">
@@ -3415,5 +3415,124 @@
         });
     </script>
     
+    <!-- AI Assistant -->
+    <div id="assistantWindow" class="assistant-simple">
+        <div class="assist-panel">
+            <div class="assist-header">
+                <h3>Asistente IA</h3>
+                <button onclick="closeAssistant()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="assist-content" id="assistChatContent" style="height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
+                <div style="background: rgba(212,175,55,0.1); color: var(--text); border-radius: 8px; padding: 10px; font-size: 0.9rem; align-self: flex-start; max-width: 85%;">
+                    ¡Hola! Soy el asistente de BARMASTER. Puedo ayudarte con las recetas, historia de la coctelería y los cursos de la página. ¿Qué deseas saber?
+                </div>
+            </div>
+            <div style="padding: 10px; border-top: 1px solid rgba(212,175,55,0.2); display: flex; gap: 8px; background: var(--panel); border-radius: 0 0 12px 12px;">
+                <input type="text" id="assistInputText" placeholder="Pregunta sobre cócteles..." onkeypress="handleAssistKeyPress(event)" style="flex: 1; padding: 8px 12px; border: 1px solid rgba(212,175,55,0.3); border-radius: 20px; background: rgba(0,0,0,0.2); color: white; outline: none; font-size: 0.9rem;">
+                <button onclick="sendAssistMessage()" style="width: 36px; height: 36px; border-radius: 50%; background: var(--gold); border: none; color: #1a1a1a; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button class="assist-btn" onclick="toggleAssistant()">
+            <i class="fas fa-robot"></i>
+        </button>
+    </div>
+
+    <script>
+        function handleAssistKeyPress(e) {
+            if (e.key === 'Enter') {
+                sendAssistMessage();
+            }
+        }
+
+        function sendAssistMessage() {
+            const input = document.getElementById('assistInputText');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            input.value = '';
+            appendAssistMessage(message, 'user');
+            
+            // Simular respuesta del asistente
+            setTimeout(() => {
+                const response = generateAssistResponse(message);
+                appendAssistMessage(response, 'bot');
+            }, 500);
+        }
+
+        function appendAssistMessage(text, sender) {
+            const container = document.getElementById('assistChatContent');
+            const msgDiv = document.createElement('div');
+            const isUser = sender === 'user';
+            
+            msgDiv.style.padding = '10px';
+            msgDiv.style.borderRadius = '8px';
+            msgDiv.style.fontSize = '0.9rem';
+            msgDiv.style.maxWidth = '85%';
+            msgDiv.style.wordBreak = 'break-word';
+            
+            if (isUser) {
+                msgDiv.style.background = 'var(--gold)';
+                msgDiv.style.color = '#1a1a1a';
+                msgDiv.style.alignSelf = 'flex-end';
+            } else {
+                msgDiv.style.background = 'rgba(212,175,55,0.1)';
+                msgDiv.style.color = 'var(--text)';
+                msgDiv.style.alignSelf = 'flex-start';
+                // Permitir HTML en las respuestas del bot (enlaces a recetas)
+                msgDiv.innerHTML = text;
+                container.appendChild(msgDiv);
+                container.scrollTop = container.scrollHeight;
+                return;
+            }
+            
+            msgDiv.textContent = text;
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function generateAssistResponse(query) {
+            query = query.toLowerCase();
+            
+            // Reglas estrictas: solo responder sobre la pgina
+            const isAboutPage = /receta|c[oó]ctel|bebida|trago|ingrediente|curso|barmaster|favorito|alcohol|vaso|aprender|historia/i.test(query);
+            
+            if (!isAboutPage && query.length > 5 && !/(hola|saludos|ayuda)/i.test(query)) {
+                return "Lo siento, solo estoy programado para responder preguntas sobre BARMASTER, nuestras recetas de cócteles y los cursos que ofrecemos en la plataforma.";
+            }
+
+            if (/(hola|saludos)/i.test(query)) {
+                return "¡Hola! ¿Buscas alguna receta de cóctel en especial o prefieres explorar nuestros cursos de bartender?";
+            }
+
+            if (/curso/i.test(query)) {
+                return "Contamos con una sección de <strong>CURSOS</strong> donde puedes aprender desde lo básico hasta coctelería avanzada. Haz clic en 'Cursos' en el menú principal.";
+            }
+            
+            if (/favorito/i.test(query)) {
+                return "Puedes guardar tus cócteles preferidos haciendo clic en el botón 'Agregar'. Podrás verlos todos en la pestaña <strong>Favoritos</strong> del menú.";
+            }
+
+            // Bsqueda de recetas a travs del objeto app global
+            if (window.app && window.app.recipes) {
+                const results = window.app.recipes.filter(r => 
+                    r.name.toLowerCase().includes(query) || 
+                    (r.ingredients && r.ingredients.some(i => String(i).toLowerCase().includes(query)))
+                );
+                
+                if (results.length > 0) {
+                    const topResults = results.slice(0, 3);
+                    let resp = "¡Encontré estas recetas en la página!<br><ul style='margin: 8px 0; padding-left: 15px;'>";
+                    topResults.forEach(r => {
+                        resp += `<li><a href="#" onclick="window.app.openRecipePage('${r.id}'); return false;" style="color: var(--gold); text-decoration: none;"><strong>${r.name}</strong></a></li>`;
+                    });
+                    resp += "</ul>";
+                    if (results.length > 3) resp += `y ${results.length - 3} más. Utiliza el buscador principal para verlas todas.`;
+                    return resp;
+                }
+            }
+            
+            return "No he podido encontrar una receta exacta con esos términos. Intenta buscar por nombre del cóctel (ej: Margarita) o por ingrediente (ej: Tequila).";
+        }
+    </script>
 </body>
 </html>
