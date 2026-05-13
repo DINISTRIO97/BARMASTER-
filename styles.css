@@ -1444,6 +1444,7 @@ html[data-theme="light"] .about-philosophy{background:linear-gradient(160deg,rgb
 
 /* Modern AI Assistant Responsive */
 @media (max-width:1024px){
+    /* La bottomnav aparece en ≤900px; en 901–1024px el asistente queda libre */
     .ai-assistant{bottom:18px;right:18px}
     .ai-toggle{width:44px;height:44px}
     .ai-icon{font-size:1.2rem}
@@ -1455,8 +1456,15 @@ html[data-theme="light"] .about-philosophy{background:linear-gradient(160deg,rgb
     .ai-topics{grid-template-columns:repeat(2,1fr)}
 }
 
+/* Cuando la bottomnav está visible (≤900px), elevar el asistente por encima de ella */
+@media (max-width:900px){
+    .ai-assistant{bottom:245px;right:16px}
+    .ai-window{bottom:60px}
+}
+
 @media (max-width:768px){
-    .ai-assistant{bottom:16px;right:16px}
+    /* bottom elevado sobre la bottomnav (~70px) + margen adicional = 245px */
+    .ai-assistant{bottom:245px;right:16px}
     .ai-toggle{width:42px;height:42px}
     .ai-icon{font-size:1.1rem}
     .ai-window{width:280px;bottom:60px}
@@ -1480,10 +1488,11 @@ html[data-theme="light"] .about-philosophy{background:linear-gradient(160deg,rgb
 }
 
 @media (max-width:480px){
-    .ai-assistant{bottom:12px;right:12px}
+    /* bottomnav en 480px + margen extra = 240px */
+    .ai-assistant{bottom:240px;right:12px}
     .ai-toggle{width:40px;height:40px}
     .ai-icon{font-size:1rem}
-    .ai-window{width:260px;bottom:55px}
+    .ai-window{width:260px;bottom:60px}
     .ai-header{padding:10px 12px}
     .ai-logo{width:28px;height:28px;font-size:0.8rem}
     .ai-info h3{font-size:0.85rem}
@@ -1505,7 +1514,18 @@ html[data-theme="light"] .about-philosophy{background:linear-gradient(160deg,rgb
 }
 
 
-/* Features Section */
+/* ── Cookie banner visible: elevar asistente por encima de la barra legal ── */
+/* En escritorio la cookie banner mide ~90px */
+body.cookie-visible .ai-assistant{bottom:245px}
+
+@media (max-width:900px){
+    body.cookie-visible .ai-assistant{bottom:335px}
+}
+@media (max-width:480px){
+    body.cookie-visible .ai-assistant{bottom:325px}
+}
+
+
 .about-features{margin-bottom:80px}
 .features-title{text-align:center;font-family:"Playfair Display",serif;font-size:2rem;font-weight:700;color:var(--text);margin:0 0 50px}
 .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}

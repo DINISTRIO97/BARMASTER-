@@ -477,7 +477,8 @@ class Barmaster {
                 </div>
             </div>
         `;
-        
+        document.body.appendChild(banner);
+        document.body.classList.add('cookie-visible');
         return banner;
     }
 
@@ -590,6 +591,7 @@ class Barmaster {
         if (banner) {
             banner.remove();
         }
+        document.body.classList.remove('cookie-visible');
     }
 
     showNotification(message, type = 'info') {
